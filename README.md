@@ -1,69 +1,133 @@
-# React + TypeScript + Vite
+# WSN Distribuidora — Website Oficial
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Website institucional desenvolvido para a **WSN Distribuidora**, empresa atuante no fornecimento de **Equipamentos de Proteção Individual (EPIs)** e soluções voltadas à segurança e operação industrial.
 
-Currently, two official plugins are available:
+O projeto foi desenvolvido como aplicação **frontend moderna**, com foco em performance, responsividade e apresentação institucional da empresa na web.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A aplicação utiliza **React** com **Vite** para build e desenvolvimento rápido, e **TailwindCSS** para estilização e layout responsivo.
 
-## Expanding the ESLint configuration
+Website: https://www.wsndistribuidora.com.br/
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tecnologias utilizadas
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Frontend
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+* React
+* Vite
+* TailwindCSS
+* JavaScript
+* HTML5
+* CSS3
+
+Ferramentas
+
+* Node.js
+* npm
+* Git
+
+---
+
+## Estrutura do projeto
+
+```
+src
+│
+├── components
+│   ├── Header
+│   ├── Footer
+│   ├── Layout
+│
+├── pages
+│   ├── Home
+│   ├── Produtos
+│   ├── Empresa
+│   └── Contato
+│
+├── assets
+│
+├── App.jsx
+└── main.jsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+A estrutura segue organização baseada em **componentes reutilizáveis**, separação de páginas e gerenciamento de recursos estáticos.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Funcionalidades
+
+* Apresentação institucional da empresa
+* Exibição de produtos e soluções
+* Navegação entre páginas
+* Interface moderna e responsiva
+* Otimização para navegação em dispositivos móveis e desktop
+
+---
+
+## Execução em ambiente de desenvolvimento
+
+Clone o repositório:
+
 ```
+git clone https://github.com/<seu-usuario>/<repositorio>.git
+```
+
+Instale as dependências:
+
+```
+npm install
+```
+
+Execute o servidor de desenvolvimento:
+
+```
+npm run dev
+```
+
+A aplicação estará disponível em:
+
+```
+http://localhost:5173
+```
+
+---
+
+## Build de produção
+
+Para gerar os arquivos otimizados de produção:
+
+```
+npm run build
+```
+
+Os arquivos finais serão gerados no diretório:
+
+```
+dist/
+```
+
+---
+
+## Direitos autorais e uso do código
+
+Este projeto constitui **propriedade intelectual do autor e da empresa para a qual foi desenvolvido**.
+
+Todo o código, estrutura, layout, design e implementação presentes neste repositório são **protegidos por direitos autorais**.
+
+Não é permitido:
+
+* copiar total ou parcialmente o código
+* reutilizar componentes ou estrutura do projeto
+* redistribuir este software
+* utilizar o projeto para fins comerciais ou educacionais
+* reproduzir o layout ou implementação
+
+Qualquer uso não autorizado, reprodução ou redistribuição deste material **pode resultar em responsabilização civil e penal conforme a legislação de direitos autorais aplicável**.
+
+---
+
+## Autor
+
+Fabio
+Desenvolvedor de Software
