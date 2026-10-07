@@ -12,12 +12,4 @@ export default defineConfig({
       "@shared": path.resolve(__dirname, "./shared"),
     },
   },
-  build: {
-    rollupOptions: {
-      output: {
-        // Three.js só entra no chunk do hero (import dinâmico).
-        manualChunks: { react: ["react", "react-dom", "react-router"] },
-      },
-    },
-  },
 });

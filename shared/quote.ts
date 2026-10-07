@@ -1,17 +1,11 @@
 import { z } from "zod";
 import { isValidCep, isValidCnpj, isValidPhoneBR } from "./br";
-import { refSchema } from "./catalog";
 
-// ---- Limites (R-COT-2) ----
-export const QUOTE_LIMITS = {
-  minQuantity: 1,
-  maxQuantity: 9999,
-  maxItems: 100,
-  cartTtlDays: 30,
-} as const;
+/** Referência do produto: 4 dígitos (R-CAT-1). Fica aqui para o catálogo público não carregar o zod. */
+export const refSchema = z.string().regex(/^\d{4}$/, "Referência tem 4 dígitos");
 
-export const clampQuantity = (n: number): number =>
-  Math.min(QUOTE_LIMITS.maxQuantity, Math.max(QUOTE_LIMITS.minQuantity, Math.trunc(n) || 1));
+import { QUOTE_LIMITS } from "./quote-limits";
+export { clampQuantity, QUOTE_LIMITS } from "./quote-limits";
 
 // ---- Envio de cotação (R-COT-3) — mesmo schema no formulário e na API ----
 const optionalText = (max: number) =>

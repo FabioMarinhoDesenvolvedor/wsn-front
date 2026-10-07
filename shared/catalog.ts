@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 export const UNITS = ["unidade", "caixa", "pacote", "par", "fardo", "galao"] as const;
 export type Unit = (typeof UNITS)[number];
 
@@ -14,8 +12,6 @@ export const UNIT_LABEL: Record<Unit, { one: string; many: string }> = {
 
 export const unitLabel = (unit: Unit, quantity = 1): string =>
   quantity === 1 ? UNIT_LABEL[unit].one : UNIT_LABEL[unit].many;
-
-export const refSchema = z.string().regex(/^\d{4}$/, "Referência tem 4 dígitos");
 
 export function slugify(value: string): string {
   return value

@@ -1,0 +1,161 @@
+/*
+  WSN — tokens do design system "Ficha Técnica".
+  Fonte única de cor, espaço, tipo, forma, movimento e camadas. Componentes usam
+  papéis (--surface-*, --text-*, --action...), nunca as cores de marca direto.
+  Marca amostrada do logo (PNG): navy #0B3A6B e verde #3E9A12 — confirmar com vetor.
+*/
+:root {
+  /* Marca */
+  --brand-navy: #0b3a6b;
+  --brand-navy-deep: #072747;
+  --brand-green: #3e9a12;
+  --brand-ink: #0d1b2a;
+  --brand-paper: #f5f6f3;
+  --brand-steel: #5d6b7a;
+  --brand-mist: #dce2e7;
+  --signal: #f2c230; /* amarelo de sinalização de segurança — pontuação, não tinta */
+
+  /* Superfícies: hierarquia por troca de superfície e hairline, não por sombra */
+  --surface-canvas: var(--brand-paper);
+  --surface-raised: #ffffff;
+  --surface-sunken: #eceee9;
+  --surface-deep: var(--brand-navy);
+  --surface-deepest: var(--brand-ink);
+
+  /* Texto */
+  --text-strong: var(--brand-ink);
+  --text-body: #23313f;
+  --text-muted: #56636f;
+  --text-on-deep: #f5f6f3;
+  --text-on-deep-muted: #b9c6d3;
+
+  /* Ação e acento */
+  --action: var(--brand-navy);
+  --action-hover: var(--brand-ink);
+  --action-text: #ffffff;
+  --accent: var(--brand-green);
+  --accent-text: #2f7a0c; /* verde com contraste AA sobre papel */
+  --focus-ring: var(--signal);
+
+  /* Semânticas (separadas do acento) */
+  --ok: #1e7b45;
+  --ok-soft: #e1f1e7;
+  --warn: #8a5a00;
+  --warn-soft: #fbf0d4;
+  --danger: #b42318;
+  --danger-soft: #fbe6e3;
+  --whatsapp: #128c4a;
+
+  /* Linhas */
+  --hairline: color-mix(in srgb, var(--brand-navy) 13%, transparent);
+  --hairline-strong: color-mix(in srgb, var(--brand-navy) 30%, transparent);
+  --hairline-on-deep: color-mix(in srgb, #ffffff 18%, transparent);
+
+  /* Espaço — base 4px */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --section: clamp(72px, 9vw, 144px);
+  --page-max: 1320px;
+  --gutter: clamp(16px, 4vw, 56px);
+  --header-h: 64px;
+
+  /* Forma */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Tipo */
+  --font-display: "Archivo Variable", "Archivo", system-ui, sans-serif;
+  --font-body: "Geist Variable", "Geist", system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", "Geist Mono", ui-monospace, monospace;
+  --text-caption: 12px;
+  --text-small: 14px;
+  --text-base: 16px;
+  --text-lead: clamp(18px, 1.3vw, 21px);
+  --text-h3: clamp(21px, 1.8vw, 28px);
+  --text-h2: clamp(32px, 4.2vw, 60px);
+  --text-h1: clamp(40px, 6.6vw, 104px);
+  --tracking-display: -0.035em;
+  --tracking-label: 0.12em;
+
+  /* Movimento — curto, desacelerado, nunca elástico */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --dur-fast: 160ms;
+  --dur-base: 280ms;
+  --dur-reveal: 800ms;
+
+  /* Camadas */
+  --z-raised: 10;
+  --z-header: 100;
+  --z-float: 150;
+  --z-sheet: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+
+  color-scheme: light;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --header-h: 56px;
+  }
+}
+
+/* Escuro: mesmos papéis, navy profundo como canvas. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --surface-canvas: #08131f;
+    --surface-raised: #0e1d2e;
+    --surface-sunken: #050d16;
+    --surface-deep: #0b2a4a;
+    --surface-deepest: #02070c;
+    --text-strong: #f1f4f7;
+    --text-body: #d3dbe3;
+    --text-muted: #93a2b1;
+    --action: #e8eef4;
+    --action-hover: #ffffff;
+    --action-text: #072747;
+    --accent-text: #7ccf4f;
+    --ok-soft: #10301f;
+    --warn: #f0c56a;
+    --warn-soft: #33270b;
+    --danger: #ff8a7a;
+    --danger-soft: #3a1512;
+    --hairline: color-mix(in srgb, #ffffff 11%, transparent);
+    --hairline-strong: color-mix(in srgb, #ffffff 24%, transparent);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --surface-canvas: #08131f;
+  --surface-raised: #0e1d2e;
+  --surface-sunken: #050d16;
+  --surface-deep: #0b2a4a;
+  --surface-deepest: #02070c;
+  --text-strong: #f1f4f7;
+  --text-body: #d3dbe3;
+  --text-muted: #93a2b1;
+  --action: #e8eef4;
+  --action-hover: #ffffff;
+  --action-text: #072747;
+  --accent-text: #7ccf4f;
+  --ok-soft: #10301f;
+  --warn: #f0c56a;
+  --warn-soft: #33270b;
+  --danger: #ff8a7a;
+  --danger-soft: #3a1512;
+  --hairline: color-mix(in srgb, #ffffff 11%, transparent);
+  --hairline-strong: color-mix(in srgb, #ffffff 24%, transparent);
+  color-scheme: dark;
+}

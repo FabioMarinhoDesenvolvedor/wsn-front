@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { z } from "zod";
-import { refSchema, slugify, UNITS } from "../../shared/catalog";
+import { slugify, UNITS } from "../../shared/catalog";
+import { refSchema } from "../../shared/quote";
 import type { AppEnv } from "../env";
 import { auditStatement } from "../platform/audit";
 import { HttpError, notFound, readJson } from "../platform/http";

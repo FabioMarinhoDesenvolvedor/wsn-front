@@ -1,0 +1,245 @@
+@import "@fontsource-variable/archivo/wdth.css";
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* Tailwind consome os tokens: utilitários só existem para papéis do design system. */
+@theme inline {
+  --color-*: initial;
+  --color-canvas: var(--surface-canvas);
+  --color-raised: var(--surface-raised);
+  --color-sunken: var(--surface-sunken);
+  --color-deep: var(--surface-deep);
+  --color-deepest: var(--surface-deepest);
+  --color-strong: var(--text-strong);
+  --color-body: var(--text-body);
+  --color-muted: var(--text-muted);
+  --color-on-deep: var(--text-on-deep);
+  --color-on-deep-muted: var(--text-on-deep-muted);
+  --color-action: var(--action);
+  --color-action-hover: var(--action-hover);
+  --color-action-text: var(--action-text);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-signal: var(--signal);
+  --color-navy: var(--brand-navy);
+  --color-navy-deep: var(--brand-navy-deep);
+  --color-green: var(--brand-green);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-whatsapp: var(--whatsapp);
+  --color-line: var(--hairline);
+  --color-line-strong: var(--hairline-strong);
+  --color-line-deep: var(--hairline-on-deep);
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-pill: var(--radius-pill);
+
+  --ease-out: var(--ease-out);
+  --ease-standard: var(--ease-standard);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--header-h) + 16px);
+  }
+  body {
+    margin: 0;
+    background: var(--surface-canvas);
+    color: var(--text-body);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--text-strong);
+    letter-spacing: var(--tracking-display);
+    line-height: 1.04;
+    font-weight: 700;
+    margin: 0;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: var(--signal);
+    color: var(--brand-ink);
+  }
+  :focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  img {
+    max-width: 100%;
+  }
+  [hidden] {
+    display: none !important;
+  }
+}
+
+@layer components {
+  .container-page {
+    width: min(100% - 2 * var(--gutter), var(--page-max));
+    margin-inline: auto;
+  }
+  /* Micro-rótulo caixa-alta: "01 — Limpeza e Higiene" */
+  .label {
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .display-1 {
+    font-size: var(--text-h1);
+    font-variation-settings: "wdth" 112;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+  }
+  .display-2 {
+    font-size: var(--text-h2);
+    font-variation-settings: "wdth" 108;
+  }
+  .display-3 {
+    font-size: var(--text-h3);
+    font-variation-settings: "wdth" 104;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .lead {
+    font-size: var(--text-lead);
+    line-height: 1.55;
+    color: var(--text-muted);
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  /* Link editorial: sublinhado que cresce da esquerda */
+  .link-grow {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size var(--dur-base) var(--ease-out);
+  }
+  @media (hover: hover) {
+    .link-grow:hover {
+      background-size: 100% 1px;
+    }
+  }
+  /* Grade de hairlines visível (assinatura "ficha técnica") */
+  .grid-lines {
+    background-image:
+      linear-gradient(to right, var(--hairline) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--hairline) 1px, transparent 1px);
+    background-size: calc(100% / 12) 100%, 100% 96px;
+  }
+}
+
+/* Revelação no scroll: a máscara sobe uma vez (useReveal). */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+}
+.reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Faixa de marcas em loop contínuo */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 40s linear infinite;
+}
+@media (hover: hover) {
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+/* Contador da cotação: "tick" ao mudar */
+@keyframes tick {
+  0% { transform: translateY(-60%); opacity: 0; }
+  100% { transform: none; opacity: 1; }
+}
+.tick {
+  animation: tick var(--dur-base) var(--ease-out);
+}
+
+@keyframes sheet-in {
+  from { transform: translateX(100%); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(8px); }
+}
+
+/* Transições de rota (View Transitions API) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--dur-base);
+  animation-timing-function: var(--ease-standard);
+}
+
+/* Movimento reduzido: nada contínuo, nada que desloque. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .marquee-track {
+    animation: none;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* Impressão: proposta comercial vira um PDF limpo (Ctrl+P → Salvar como PDF). */
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  body {
+    background: #fff;
+  }
+  .no-print {
+    display: none !important;
+  }
+}

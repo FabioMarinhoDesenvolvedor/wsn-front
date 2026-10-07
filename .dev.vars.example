@@ -1,0 +1,9 @@
+# Copie para .dev.vars (desenvolvimento). Em produção: `wrangler secret put <NOME>`.
+# Gerar chave: node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+PII_KEYS={"1":"<base64 de 32 bytes>"}
+PII_ACTIVE_KEY=1
+HMAC_KEY=<base64 de 32 bytes>
+# Segredo de TESTE do Turnstile (aceita o token de teste); em produção use o real.
+TURNSTILE_SECRET=1x0000000000000000000000000000000AA
+# Opcional: sem ele, e-mails vão para o log do terminal (com o link de acesso).
+# RESEND_API_KEY=re_...

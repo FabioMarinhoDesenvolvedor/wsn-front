@@ -30,10 +30,10 @@ async function renderWithMeta(env: Env, request: Request, meta: PageMeta): Promi
     .on('meta[property="og:description"]', { element: (el) => void el.setAttribute("content", meta.description) })
     .on('meta[property="og:url"]', { element: (el) => void el.setAttribute("content", abs(meta.canonical ?? new URL(request.url).pathname)) })
     .on('meta[property="og:image"]', { element: (el) => void (meta.image && el.setAttribute("content", abs(meta.image))) })
-    .on('link[rel="canonical"]', { element: (el) => void el.setAttribute("href", abs(meta.canonical ?? new URL(request.url).pathname)) })
     .on("head", {
       element(el) {
         if (meta.noindex) el.append('<meta name="robots" content="noindex, nofollow">', { html: true });
+        if (meta.canonical) el.append(`<link rel="canonical" href="${abs(meta.canonical)}">`, { html: true });
         if (meta.jsonLd) el.append(`<script type="application/ld+json">${escapeJson(meta.jsonLd)}</script>`, { html: true });
       },
     })

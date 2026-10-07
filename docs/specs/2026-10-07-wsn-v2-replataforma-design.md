@@ -1,7 +1,7 @@
 # WSN v2 — Replataforma: spec de design, regras de negócio e arquitetura
 
 - **Data**: 2026-10-07
-- **Status**: rascunho para aprovação do Fábio (nada implementado ainda)
+- **Status**: aprovada e **implementada** em 2026-10-07 (ver "Revisão 1" no fim — ela prevalece sobre o corpo onde divergirem)
 - **Escopo**: transformar o site-vitrine estático (React + Vite, sem backend) em um
   produto completo: catálogo B2B com pedido de cotação real, backend seguro,
   painel administrativo, design system próprio e camada de movimento/3D.
@@ -22,7 +22,7 @@ Problemas encontrados lendo o código em `main` (d1cd304). Os três primeiros s�
 | 1 | **Pedido de orçamento não envia.** EmailJS com `seu_service_id` / `seu_template_id` / `seu_user_id` placeholders | `src/components/Cart.tsx:95-97` | Todo lead do carrinho falha (cai no `catch` → alert de erro) |
 | 2 | **Formulário de contato só faz `console.log`** e mostra "enviado" | `src/pages/Contact.tsx` `handleSubmit` | Cliente acha que enviou; WSN nunca recebe |
 | 3 | **Preços expostos publicamente** no `public/catalogo_produtos.json` (`preco`), embora o site não os mostre | `public/catalogo_produtos.json` | Tabela de preço de custo/venda baixável por qualquer concorrente |
-| 4 | **Foto errada por produto**: imagem atribuída por índice rotativo, não por `ref` | `Products.tsx` `AVAILABLE_IMAGE_NUMBERS` | Produto "Cloro 5L" pode exibir foto de luva |
+| 4 | ~~Foto errada por produto~~ — **corrigido na auditoria**: o índice coincidia com a ref (as refs pulam 0044–0047 como os arquivos); era frágil, não errado | `Products.tsx` `AVAILABLE_IMAGE_NUMBERS` | Agora o vínculo é explícito por ref |
 | 5 | Categoria inferida no navegador por ~80 `includes()` de palavras-chave | `Products.tsx:1476-1598` | Frágil, não editável, regra de negócio no lugar errado |
 | 6 | Newsletter falsa (só muda estado local) | `Footer.tsx` | Promessa não cumprida + coleta sem consentimento |
 | 7 | Dois números de WhatsApp: (11) 4070-5300 e (11) 97384-6070 | `Navbar.tsx`, `Contact.tsx`, `AboutUs.tsx` | Qual é o oficial? |
@@ -528,3 +528,26 @@ Rotas antigas (`/aboutus`, `/products`, `/contact`, `/cart`) redirecionam 301.
 ## Fora de escopo da v2
 Checkout e pagamento online, área do cliente com login, integração com ERP/estoque
 em tempo real, multi-idioma, app mobile, chat ao vivo além do WhatsApp.
+
+---
+
+## Revisão 1 — decisões do Fábio e da implementação (2026-10-07)
+
+| Tema | Decisão | Onde |
+|---|---|---|
+| Preço público | **Não.** Preço só na proposta pessoal | `docs/memory/decisions/2026-10-07-proposta-como-produto.md` |
+| WhatsApp | (11) 97384-6070 (celular do link wa.me). Fixo "a confirmar": 3789-3789 × 4070-5300 | `shared/company.ts` |
+| Newsletter | **Removida** (R-NEW-1 sai do escopo) | — |
+| Hospedagem | **Cloudflare Workers + D1 + R2 + Turnstile** (gratuito, sem cold start), substitui NestJS/Postgres/Render (§5–§6) | `docs/memory/decisions/2026-10-07-cloudflare-workers-d1.md` |
+| Login | **Link mágico** em vez de Argon2id+TOTP (§7) — limite de 10 ms de CPU | `docs/memory/decisions/2026-10-07-login-link-magico.md` |
+| CSRF | Origin obrigatório + SameSite=Strict (em vez de double-submit) | `worker/platform/http.ts` |
+| Criptografia | AES-256-GCM por campo com **AAD por linha** e keyring versionado; sem envelope por registro (sem KMS no plano gratuito, ganho nulo) | `worker/platform/crypto.ts` |
+| Render do front | SPA + **HTMLRewriter no Worker** para SEO por produto (sem prerender/rebuild) | `worker/seo.ts` |
+| Logo | Não existe vetor; PNG recortado + símbolo redesenhado em SVG; site só em tema claro | `docs/memory/decisions/2026-10-07-tema-claro.md` |
+| Feature de valor | Cotação → **proposta versionada** → **aprovação online** + painel comercial + buscas sem resultado | `docs/project/00-proposta-de-valor.md` |
+| Upload de foto | Reduzida/convertida a WebP no navegador; servidor confere os bytes "RIFF…WEBP" e ≤ 1 MB | `worker/modules/admin-catalog.ts` |
+
+Critérios de aceitação: 1–7 e 9–12 cobertos por testes ou pelo fluxo ponta a ponta
+(ver handoff). **Critério 8 (Lighthouse) não medido** neste ambiente; o chunk 3D tem
+131 KB gzip (meta 120) e só carrega em desktop.
+

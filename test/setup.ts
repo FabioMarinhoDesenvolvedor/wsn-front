@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-namespace -- forma exigida para estender os tipos de cloudflare:test */
 import { applyD1Migrations, env } from "cloudflare:test";
 
 declare global {
