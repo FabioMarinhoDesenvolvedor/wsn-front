@@ -16,4 +16,5 @@ Continuidade entre sessões de IA. Ler antes de qualquer tarefa (Regra Zero do C
 - [Windows: SQL do D1 por arquivo, não por `--command`](gotchas/windows-wrangler-sql.md)
 
 ## Handoffs (`handoffs/`)
+- **[2026-10-07 — O QUE FALTA (ler primeiro)](handoffs/2026-10-07-pendencias-proxima-sessao.md)**
 - [2026-10-07 — v2 implementada (API, site, painel, 3D)](handoffs/2026-10-07-v2-implementada.md)

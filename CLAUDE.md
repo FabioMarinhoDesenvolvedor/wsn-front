@@ -18,7 +18,7 @@ Um único Worker da Cloudflare serve tudo (plano gratuito):
 
 ## Regra Zero — memória antes de agir
 
-1. Ler `docs/memory/README.md`.
+1. Ler `docs/memory/README.md` e o handoff "O QUE FALTA" mais recente — se o Fábio perguntar "o que falta?", responder com ele.
 2. Consultar `docs/memory/decisions/` — não contradizer decisão sem falar com o Fábio.
 3. Consultar `docs/memory/gotchas/` e o último `docs/memory/handoffs/`.
 4. Ao fim da sessão: handoff novo + decisões/gotchas que surgiram. Doc que mente é pior que nenhum.
