@@ -1,4 +1,4 @@
-# Design "Ficha Técnica" e hero "Órbita WSN"
+# Design "Ficha Técnica" e hero "Órbita WSN" ← SUBSTITUÍDA por 2026-10-07-design-fresco-confiavel.md
 
 - **Data**: 2026-10-07 · **Status**: aprovada ("Mantém o design que você montou")
 

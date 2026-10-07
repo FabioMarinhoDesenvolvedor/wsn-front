@@ -6,7 +6,8 @@ Continuidade entre sessões de IA. Ler antes de qualquer tarefa (Regra Zero do C
 - [2026-10-07 — Cloudflare Workers + D1 no lugar de Render/NestJS](decisions/2026-10-07-cloudflare-workers-d1.md)
 - [2026-10-07 — Login sem senha (link mágico)](decisions/2026-10-07-login-link-magico.md)
 - [2026-10-07 — Preço só na proposta; feature de venda = cotação → proposta → aprovação](decisions/2026-10-07-proposta-como-produto.md)
-- [2026-10-07 — Design "Ficha Técnica" e hero "Órbita WSN"](decisions/2026-10-07-design-ficha-tecnica.md)
+- [2026-10-07 — Design "Fresco & Confiável" (atual)](decisions/2026-10-07-design-fresco-confiavel.md)
+- [2026-10-07 — Design "Ficha Técnica" ← SUBSTITUÍDA](decisions/2026-10-07-design-ficha-tecnica.md)
 - [2026-10-07 — Site só em tema claro até existir logo vetorial](decisions/2026-10-07-tema-claro.md)
 
 ## Gotchas (`gotchas/`)

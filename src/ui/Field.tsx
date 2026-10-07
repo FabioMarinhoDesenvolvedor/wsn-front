@@ -2,8 +2,8 @@ import { cloneElement, isValidElement, useId, type InputHTMLAttributes, type Rea
 import { cn } from "@/lib/cn";
 
 const control =
-  "w-full rounded-md border border-line-strong bg-raised px-3.5 text-[15px] text-strong placeholder:text-muted/80 " +
-  "transition-colors duration-150 hover:border-action/60 focus:border-action focus:outline-none focus-visible:outline-3 focus-visible:outline-signal " +
+  "w-full rounded-md border border-line-strong bg-raised px-4 text-[15px] text-strong placeholder:text-muted/80 " +
+  "transition-colors duration-150 hover:border-action/60 focus:border-action focus:outline-none focus:ring-4 focus:ring-[#d6e8f8] " +
   "aria-[invalid=true]:border-danger disabled:opacity-60";
 
 interface FieldProps {

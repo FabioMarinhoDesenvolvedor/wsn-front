@@ -11,6 +11,7 @@ import { AnchorButton, Button } from "@/ui/Button";
 import { Alert, Pendente } from "@/ui/bits";
 import { Checkbox, Field, Honeypot, Input, Select, Textarea } from "@/ui/Field";
 import { toast } from "@/ui/toast";
+import { PageHeader } from "@/ui/PageHeader";
 import { Turnstile, type TurnstileHandle } from "../quote/Turnstile";
 
 const empty = { name: "", email: "", phone: "", company: "", subject: "", message: "" };
@@ -42,14 +43,10 @@ export function ContactPage() {
 
   return (
     <>
-      <section className="container-page pt-12 pb-10 md:pt-16">
-        <p className="label mb-5">Atendimento</p>
-        <h1 className="display-1">{contact.title}</h1>
-        <p className="lead mt-5 max-w-2xl">{contact.lead}</p>
-      </section>
+      <PageHeader eyebrow="Atendimento" title={contact.title} lead={contact.lead} />
 
-      <section className="container-page grid gap-8 pb-[var(--section)] lg:grid-cols-[1.35fr_1fr]">
-        <div className="rounded-lg border border-line bg-raised p-6 md:p-8">
+      <section className="container-page grid gap-6 pt-2 pb-[var(--section)] lg:grid-cols-[1.35fr_1fr]">
+        <div className="card p-6 md:p-8">
           <h2 className="display-3">{contact.form.title}</h2>
           {send.isSuccess ? (
             <div className="mt-8 flex flex-col items-start gap-4">
@@ -161,7 +158,7 @@ export function ContactPage() {
             </ul>
           </div>
 
-          <div className="rounded-lg border border-line bg-raised p-6 md:p-8">
+          <div className="card p-6 md:p-8">
             <h2 className="display-3">{contact.location.title}</h2>
             <p className="mt-4 flex gap-3">
               <MapPin className="mt-1 size-5 shrink-0 text-accent-text" />
@@ -177,7 +174,7 @@ export function ContactPage() {
         </div>
       </section>
 
-      <section className="border-t border-line bg-raised py-[var(--section)]" aria-labelledby="faq">
+      <section className="bg-sky py-[var(--section)]" aria-labelledby="faq">
         <div className="container-page grid gap-10 lg:grid-cols-[1fr_1.6fr]">
           <div>
             <p className="label mb-4">Dúvidas</p>
@@ -186,9 +183,9 @@ export function ContactPage() {
             </h2>
             <p className="lead mt-4">{contact.faq.lead}</p>
           </div>
-          <div className="border-t border-line">
+          <div>
             {contact.faq.items.map((f) => (
-              <details key={f.question} className="group border-b border-line">
+              <details key={f.question} className="group mb-3 rounded-md bg-white px-5 shadow-sm">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-lg font-medium text-strong [&::-webkit-details-marker]:hidden">
                   {f.question}
                   <ChevronDown className="size-5 shrink-0 text-muted transition-transform duration-300 group-open:rotate-180" />

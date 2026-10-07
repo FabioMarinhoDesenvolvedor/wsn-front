@@ -98,8 +98,8 @@ export function QuotePage() {
   const spCapital = isSpCapitalCep(customer.cep);
 
   return (
-    <div className="container-page pt-10 pb-[var(--section)] md:pt-14">
-      <ol className="label mb-6 flex flex-wrap gap-x-6 gap-y-2" aria-label="Etapas">
+    <div className="container-page pt-10 md:pt-14">
+      <ol className="mb-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold text-muted" aria-label="Etapas">
         <li className="text-strong">01 — Revisar itens</li>
         <li className="text-strong">02 — Seus dados</li>
         <li>03 — Protocolo</li>
@@ -108,7 +108,7 @@ export function QuotePage() {
 
       <div className="mt-10 grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-start">
         {/* Itens */}
-        <section aria-labelledby="itens" className="rounded-lg border border-line bg-raised">
+        <section aria-labelledby="itens" className="card">
           <header className="flex items-center justify-between border-b border-line px-5 py-4">
             <h2 id="itens" className="display-3 text-xl">
               {copy.selected}
@@ -128,12 +128,12 @@ export function QuotePage() {
               const gone = !p || unavailable.includes(l.ref);
               return (
                 <li key={l.ref} className={cn("grid grid-cols-[64px_1fr] gap-4 py-4", gone && "opacity-60")}>
-                  <div className="grid size-16 place-items-center rounded-md border border-line bg-white">
+                  <div className="grid size-16 place-items-center rounded-md bg-photo">
                     {p?.imagePath ? <img src={p.imagePath} alt="" className="size-12 object-contain" /> : <span className="font-mono text-xs text-[#5d6b7a]">{l.ref}</span>}
                   </div>
                   <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                     <div className="min-w-0">
-                      <p className="font-mono text-xs text-muted">REF {l.ref}</p>
+                      <p className="text-xs font-semibold text-muted">Ref. {l.ref}</p>
                       {p ? (
                         <Link to={productPath(p)} className="font-medium text-strong hover:underline">
                           {p.name}
@@ -162,12 +162,12 @@ export function QuotePage() {
           </ul>
           <footer className="flex items-center justify-between border-t border-line px-5 py-4">
             <span className="font-medium">{copy.totalItems}</span>
-            <span className="font-mono text-lg text-strong tabular">{total}</span>
+            <span className="text-lg font-bold text-strong tabular">{total}</span>
           </footer>
         </section>
 
         {/* Dados */}
-        <section aria-labelledby="dados" className="rounded-lg border border-line bg-raised p-5 md:p-6 lg:sticky lg:top-[calc(var(--header-h)+24px)]">
+        <section aria-labelledby="dados" className="card p-5 md:p-6 lg:sticky lg:top-[calc(var(--header-h)+24px)]">
           <h2 id="dados" className="display-3 text-xl">
             {copy.formTitle}
           </h2>

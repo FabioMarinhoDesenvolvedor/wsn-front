@@ -9,8 +9,9 @@ import { cn } from "@/lib/cn";
 import { useDebounced, useDocumentTitle } from "@/lib/hooks";
 import { AnchorButton, Button } from "@/ui/Button";
 import { EmptyState, Skeleton } from "@/ui/bits";
+import { PageHeader } from "@/ui/PageHeader";
 import { Select } from "@/ui/Field";
-import { categoryIcon, indexLabel, searchProducts, toSearchable, useCatalog, useCatalogIndex } from "./data";
+import { categoryIcon, searchProducts, toSearchable, useCatalog, useCatalogIndex } from "./data";
 import { ProductCard } from "./ProductCard";
 
 const PAGE = 24;
@@ -92,18 +93,19 @@ export function CatalogPage() {
   const hasFilters = Boolean(debounced || brand || unit || activeCategory);
 
   return (
-    <div className="container-page pt-10 pb-[var(--section)] md:pt-14">
-      <header className="flex flex-col gap-6 border-b border-line pb-8 md:flex-row md:items-end md:justify-between">
-        <div className="max-w-2xl">
-          <p className="label mb-4">
-            {activeCategory ? `${indexLabel(idx.categories.indexOf(activeCategory))} — Categoria` : `${data?.products.length ?? "—"} produtos · Ref. de 4 dígitos`}
-          </p>
-          <h1 className="display-2">{activeCategory?.name ?? copy.title}</h1>
-          <p className="lead mt-4">{activeCategory?.description ?? copy.lead}</p>
-        </div>
+    <>
+      <PageHeader
+        eyebrow={
+          activeCategory
+            ? `Categoria · ${idx.countByCategory.get(activeCategory.id) ?? 0} produtos`
+            : `${data?.products.length ?? ""} produtos · busque por nome, marca ou Ref.`
+        }
+        title={activeCategory?.name ?? copy.title}
+        lead={activeCategory?.description ?? copy.lead}
+        aside={
         <form
           role="search"
-          className="relative w-full md:w-[380px]"
+          className="relative w-full md:w-[420px]"
           onSubmit={(e) => {
             e.preventDefault();
             searchRef.current?.blur();
@@ -117,7 +119,7 @@ export function CatalogPage() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder={copy.searchPlaceholder}
             aria-label="Buscar no catálogo"
-            className="h-12 w-full rounded-pill border border-line-strong bg-raised pr-11 pl-12 text-[15px] text-strong placeholder:text-muted focus:border-action focus:outline-none [&::-webkit-search-cancel-button]:hidden"
+            className="h-14 w-full rounded-pill border border-line-strong bg-white pr-11 pl-12 shadow-sm text-[15px] text-strong placeholder:text-muted focus:border-action focus:outline-none [&::-webkit-search-cancel-button]:hidden"
           />
           {query && (
             <button
@@ -130,15 +132,17 @@ export function CatalogPage() {
             </button>
           )}
         </form>
-      </header>
+        }
+      />
+      <div className="container-page">
 
       {/* Categorias */}
-      <nav aria-label={copy.categoriesLabel} className="-mx-[var(--gutter)] mt-6 overflow-x-auto px-[var(--gutter)] [scrollbar-width:none]">
+      <nav aria-label={copy.categoriesLabel} className="-mx-[var(--gutter)] mt-8 overflow-x-auto px-[var(--gutter)] [scrollbar-width:none]">
         <ul className="flex w-max gap-2">
           <li>
             <CategoryChip to={`/produtos${params.size ? `?${params}` : ""}`} active={!activeCategory} label={copy.allLabel} count={data?.products.length} />
           </li>
-          {idx.categories.map((c, i) => {
+          {idx.categories.map((c) => {
             const Icon = categoryIcon(c.slug);
             return (
               <li key={c.id}>
@@ -148,8 +152,7 @@ export function CatalogPage() {
                   label={c.name}
                   count={idx.countByCategory.get(c.id)}
                   icon={<Icon className="size-4" />}
-                  index={indexLabel(i)}
-                />
+                                  />
               </li>
             );
           })}
@@ -157,9 +160,9 @@ export function CatalogPage() {
       </nav>
 
       {/* Filtros finos + visualização */}
-      <div className="mt-6 flex flex-wrap items-center gap-3 border-b border-line pb-4">
+      <div className="mt-4 flex flex-wrap items-center gap-3 pb-2">
         <p className="mr-auto text-sm text-muted" aria-live="polite">
-          <span className="font-mono text-strong tabular">{results.length}</span> produto(s) encontrado(s)
+          <strong className="text-strong tabular">{results.length}</strong> produto(s) encontrado(s)
           {debounced && ` para "${debounced}"`}
         </p>
         <Select aria-label="Filtrar por marca" value={brand} onChange={(e) => updateParam("marca", e.target.value)} className="h-10 w-auto min-w-36 text-sm">
@@ -268,25 +271,25 @@ export function CatalogPage() {
       </section>
 
       <HelpBand />
-    </div>
+      </div>
+    </>
   );
 }
 
-function CategoryChip({ to, active, label, count, icon, index }: { to: string; active: boolean; label: string; count?: number; icon?: React.ReactNode; index?: string }) {
+function CategoryChip({ to, active, label, count, icon }: { to: string; active: boolean; label: string; count?: number; icon?: React.ReactNode }) {
   return (
     <Link
       to={to}
       viewTransition
       aria-current={active ? "page" : undefined}
       className={cn(
-        "inline-flex h-10 items-center gap-2 rounded-pill border px-4 text-sm font-medium whitespace-nowrap transition-colors duration-200",
-        active ? "border-action bg-action text-action-text" : "border-line-strong text-body hover:border-action hover:text-strong",
+        "inline-flex h-11 items-center gap-2 rounded-pill border px-4 text-sm font-semibold whitespace-nowrap transition-colors duration-200",
+        active ? "border-navy bg-navy text-white shadow-sm" : "border-line bg-white text-body hover:border-navy hover:text-navy",
       )}
     >
-      {index && <span className={cn("font-mono text-[11px]", active ? "text-white/60" : "text-muted")}>{index}</span>}
-      {icon}
+            {icon}
       {label}
-      {count !== undefined && <span className={cn("font-mono text-xs tabular", active ? "text-white/70" : "text-muted")}>{count}</span>}
+      {count !== undefined && <span className={cn("rounded-pill px-1.5 text-xs tabular", active ? "bg-white/20 text-white" : "bg-sunken text-muted")}>{count}</span>}
     </Link>
   );
 }

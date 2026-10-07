@@ -68,6 +68,28 @@ export const home = {
   },
 };
 
+/** Curadoria visual: fotos que representam cada categoria e a vitrine da Home (refs do catálogo). */
+export const showcase = {
+  hero: ["0017", "0003", "0042", "0056", "0041", "0002"],
+  categoryCovers: {
+    limpeza: ["0017", "0003", "0002"],
+    descartaveis: ["0050", "0026", "0043"],
+    epis: ["0042", "0041", "0048"],
+    embalagens: ["0063", "0029", "0053"],
+    papeis: ["0056", "0054", "0055"],
+  } as Record<string, string[]>,
+  featured: ["0042", "0002", "0063", "0056", "0017", "0048", "0029", "0003"],
+  featuredTitle: "Mais pedidos pelos nossos clientes",
+  featuredLead: "Os itens que empresas, condomínios e restaurantes mais cotam com a WSN.",
+  // Explica o fluxo novo de cotação; o último passo reaproveita a copy "Como funciona?" do carrinho v1.
+  steps: [
+    { title: "Escolha os produtos", text: "Busque por nome, marca ou referência e adicione à sua cotação." },
+    { title: "Envie sua cotação", text: "Sem compromisso. Você recebe um protocolo na hora." },
+    { title: "Receba o orçamento", text: "Nossa equipe entrará em contato em até 24 horas com o orçamento completo dos produtos selecionados." },
+  ],
+  stepsTitle: "Como funciona?",
+};
+
 export const about = {
   title: "Nossa história",
   paragraphs: [

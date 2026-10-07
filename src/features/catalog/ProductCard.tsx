@@ -25,12 +25,12 @@ export function ProductImage({
           alt={product.name}
           loading={eager ? "eager" : "lazy"}
           decoding="async"
-          className="size-[78%] object-contain mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+          className="absolute inset-[10%] size-[80%] object-contain mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-[1.05]"
           style={{ viewTransitionName: `product-${product.ref}` }}
         />
       ) : (
-        <div className="flex flex-col items-center gap-1 text-[#5d6b7a]">
-          <span className="font-mono text-3xl tracking-tight">{product.ref}</span>
+        <div className="flex flex-col items-center gap-1 text-muted">
+          <span className="text-3xl font-bold tracking-tight">{product.ref}</span>
           <span className="label">foto em breve</span>
         </div>
       )}
@@ -53,9 +53,9 @@ export function ProductCard({ product, categoryName, brandName, view = "grid" }:
     return (
       <li className="group grid grid-cols-[64px_1fr] items-center gap-4 border-b border-line py-3 sm:grid-cols-[64px_88px_1fr_120px_180px]">
         <Link to={href} viewTransition tabIndex={-1} aria-hidden>
-          <ProductImage product={product} imgRef={imageRef} className="size-16 rounded-md border border-line" />
+          <ProductImage product={product} imgRef={imageRef} className="size-16 rounded-md bg-photo" />
         </Link>
-        <span className="hidden font-mono text-sm text-muted tabular sm:block">{product.ref}</span>
+        <span className="hidden text-sm font-semibold text-muted tabular sm:block">Ref. {product.ref}</span>
         <div className="min-w-0">
           <Link to={href} viewTransition className="link-grow font-medium text-strong">
             {product.name}
@@ -73,14 +73,16 @@ export function ProductCard({ product, categoryName, brandName, view = "grid" }:
   }
 
   return (
-    <li className="group relative flex flex-col overflow-hidden rounded-lg border border-line bg-raised transition-[border-color,transform] duration-300 ease-out hover:-translate-y-0.5 hover:border-line-strong">
-      <Link to={href} viewTransition className="flex flex-1 flex-col focus-visible:outline-offset-[-3px]">
-        <ProductImage product={product} imgRef={imageRef} className="border-b border-line" />
-        <RefTag value={product.ref} className="absolute top-3 left-3 group-hover:bg-navy group-hover:text-white" />
-        <div className="flex flex-1 flex-col gap-2 p-4 pb-3">
-          {(categoryName || brandName) && <p className="label truncate">{[categoryName, brandName].filter(Boolean).join(" · ")}</p>}
-          <h3 className="line-clamp-2 font-sans text-[15px] leading-snug font-medium tracking-normal text-strong">{product.name}</h3>
-          <p className="mt-auto text-[13px] text-muted">Vendido por {unitLabel(product.unit)}</p>
+    <li className="card card-hover group relative flex flex-col overflow-hidden">
+      <Link to={href} viewTransition className="flex flex-1 flex-col rounded-lg focus-visible:outline-offset-[-3px]">
+        <div className="p-2.5 pb-0">
+          <ProductImage product={product} imgRef={imageRef} className="rounded-md bg-photo" />
+        </div>
+        <RefTag value={product.ref} className="absolute top-4 left-4" />
+        <div className="flex flex-1 flex-col gap-1 px-4 pt-3 pb-3">
+          {brandName ? <p className="text-xs font-bold text-accent-text">{brandName}</p> : categoryName && <p className="text-xs font-semibold text-muted">{categoryName}</p>}
+          <h3 className="line-clamp-2 text-[15px] leading-snug font-semibold tracking-normal text-strong">{product.name}</h3>
+          <p className="mt-auto pt-1 text-[13px] text-muted">Vendido por {unitLabel(product.unit)}</p>
         </div>
       </Link>
       <div className="px-4 pb-4">

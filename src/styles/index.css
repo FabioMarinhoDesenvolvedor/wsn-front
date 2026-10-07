@@ -1,6 +1,4 @@
-@import "@fontsource-variable/archivo/wdth.css";
-@import "@fontsource-variable/geist";
-@import "@fontsource-variable/geist-mono";
+@import "@fontsource-variable/plus-jakarta-sans";
 @import "tailwindcss";
 @import "./tokens.css";
 
@@ -10,6 +8,9 @@
   --color-canvas: var(--surface-canvas);
   --color-raised: var(--surface-raised);
   --color-sunken: var(--surface-sunken);
+  --color-sky: var(--surface-sky);
+  --color-mint: var(--surface-mint);
+  --color-photo: var(--surface-photo);
   --color-deep: var(--surface-deep);
   --color-deepest: var(--surface-deepest);
   --color-strong: var(--text-strong);
@@ -25,6 +26,7 @@
   --color-signal: var(--signal);
   --color-navy: var(--brand-navy);
   --color-navy-deep: var(--brand-navy-deep);
+  --color-brand-sky: var(--brand-sky);
   --color-green: var(--brand-green);
   --color-ok: var(--ok);
   --color-ok-soft: var(--ok-soft);
@@ -47,7 +49,12 @@
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
   --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
   --radius-pill: var(--radius-pill);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
 
   --ease-out: var(--ease-out);
   --ease-standard: var(--ease-standard);
@@ -68,11 +75,14 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     color: var(--text-strong);
     letter-spacing: var(--tracking-display);
-    line-height: 1.04;
+    line-height: 1.12;
     font-weight: 700;
     margin: 0;
     text-wrap: balance;
@@ -81,13 +91,13 @@
     text-wrap: pretty;
   }
   ::selection {
-    background: var(--signal);
+    background: #cfe4f7;
     color: var(--brand-ink);
   }
   :focus-visible {
     outline: 3px solid var(--focus-ring);
     outline-offset: 2px;
-    border-radius: 4px;
+    border-radius: 6px;
   }
   img {
     max-width: 100%;
@@ -102,39 +112,50 @@
     width: min(100% - 2 * var(--gutter), var(--page-max));
     margin-inline: auto;
   }
-  /* Micro-rótulo caixa-alta: "01 — Limpeza e Higiene" */
+  /* Sobretítulo: pequeno, caixa-alta, verde da marca */
   .label {
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: var(--text-caption);
+    font-weight: 700;
     letter-spacing: var(--tracking-label);
     text-transform: uppercase;
     color: var(--text-muted);
   }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--accent-text);
+  }
   .display-1 {
     font-size: var(--text-h1);
-    font-variation-settings: "wdth" 112;
-    letter-spacing: -0.045em;
-    line-height: 0.95;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
   }
   .display-2 {
     font-size: var(--text-h2);
-    font-variation-settings: "wdth" 108;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
   }
   .display-3 {
     font-size: var(--text-h3);
-    font-variation-settings: "wdth" 104;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
   }
   .lead {
     font-size: var(--text-lead);
-    line-height: 1.55;
-    color: var(--text-muted);
+    line-height: 1.6;
+    color: var(--text-body);
   }
   .tabular {
     font-variant-numeric: tabular-nums;
   }
-  /* Link editorial: sublinhado que cresce da esquerda */
   .link-grow {
     background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
     transition: background-size var(--dur-base) var(--ease-out);
@@ -144,19 +165,34 @@
       background-size: 100% 1px;
     }
   }
-  /* Grade de hairlines visível (assinatura "ficha técnica") */
-  .grid-lines {
-    background-image:
-      linear-gradient(to right, var(--hairline) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--hairline) 1px, transparent 1px);
-    background-size: calc(100% / 12) 100%, 100% 96px;
+  /* Card padrão: branco, macio, sombra suave que cresce no hover */
+  .card {
+    background: var(--surface-raised);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition:
+      box-shadow var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-out);
+  }
+  @media (hover: hover) {
+    .card-hover:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+  }
+  /* Faixa do topo do hero: azul-céu muito leve, como os banners da WSN */
+  .bg-hero {
+    background:
+      radial-gradient(60% 70% at 85% 30%, rgb(111 168 220 / 0.22), transparent 70%),
+      radial-gradient(50% 60% at 10% 90%, rgb(62 154 18 / 0.08), transparent 70%),
+      linear-gradient(180deg, #f4f9fe 0%, #ffffff 100%);
   }
 }
 
-/* Revelação no scroll: a máscara sobe uma vez (useReveal). */
+/* Revelação suave no scroll */
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(16px);
   transition:
     opacity var(--dur-reveal) var(--ease-out),
     transform var(--dur-reveal) var(--ease-out);
@@ -166,14 +202,27 @@
   transform: none;
 }
 
-/* Faixa de marcas em loop contínuo */
+/* Produtos do hero flutuam devagar */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
 @keyframes marquee {
   to {
     transform: translateX(-50%);
   }
 }
 .marquee-track {
-  animation: marquee 40s linear infinite;
+  animation: marquee 45s linear infinite;
 }
 @media (hover: hover) {
   .marquee:hover .marquee-track {
@@ -181,33 +230,43 @@
   }
 }
 
-/* Contador da cotação: "tick" ao mudar */
 @keyframes tick {
-  0% { transform: translateY(-60%); opacity: 0; }
-  100% { transform: none; opacity: 1; }
+  0% {
+    transform: translateY(-60%);
+    opacity: 0;
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
 }
 .tick {
   animation: tick var(--dur-base) var(--ease-out);
 }
 
 @keyframes sheet-in {
-  from { transform: translateX(100%); }
+  from {
+    transform: translateX(100%);
+  }
 }
 @keyframes fade-in {
-  from { opacity: 0; }
+  from {
+    opacity: 0;
+  }
 }
 @keyframes rise-in {
-  from { opacity: 0; transform: translateY(8px); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
 }
 
-/* Transições de rota (View Transitions API) */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: var(--dur-base);
   animation-timing-function: var(--ease-standard);
 }
 
-/* Movimento reduzido: nada contínuo, nada que desloque. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -221,7 +280,8 @@
     opacity: 1;
     transform: none;
   }
-  .marquee-track {
+  .marquee-track,
+  .float {
     animation: none;
   }
   ::view-transition-group(*),
@@ -231,7 +291,6 @@
   }
 }
 
-/* Impressão: proposta comercial vira um PDF limpo (Ctrl+P → Salvar como PDF). */
 @media print {
   @page {
     margin: 14mm;

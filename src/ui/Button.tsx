@@ -6,13 +6,13 @@ export type ButtonVariant = "primary" | "secondary" | "ghost" | "whatsapp" | "da
 export type ButtonSize = "sm" | "md" | "lg";
 
 const base =
-  "relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-pill font-medium whitespace-nowrap select-none " +
+  "relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-pill font-semibold whitespace-nowrap select-none " +
   "transition-[color,background-color,border-color,transform] duration-200 ease-out " +
   "disabled:cursor-not-allowed disabled:opacity-50 [&>svg]:shrink-0";
 
 const variants: Record<ButtonVariant, string> = {
-  primary: "bg-action text-action-text not-disabled:hover:bg-action-hover",
-  secondary: "border border-line-strong bg-raised text-strong not-disabled:hover:border-action",
+  primary: "bg-action text-action-text shadow-sm not-disabled:hover:bg-action-hover not-disabled:hover:shadow-md",
+  secondary: "border border-line-strong bg-raised text-strong not-disabled:hover:border-navy not-disabled:hover:text-navy",
   ghost: "text-strong not-disabled:hover:bg-sunken",
   whatsapp: "bg-whatsapp text-white not-disabled:hover:brightness-110",
   danger: "border border-danger/40 text-danger not-disabled:hover:bg-danger-soft",
@@ -22,7 +22,7 @@ const variants: Record<ButtonVariant, string> = {
 const sizes: Record<ButtonSize, string> = {
   sm: "h-9 px-4 text-sm",
   md: "h-11 px-5 text-[15px]",
-  lg: "h-13 px-7 text-base",
+  lg: "h-13 px-7 text-[15px]",
 };
 
 export const buttonClass = (variant: ButtonVariant = "primary", size: ButtonSize = "md", className?: string) =>

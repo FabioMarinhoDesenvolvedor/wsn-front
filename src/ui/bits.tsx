@@ -3,17 +3,17 @@ import type { ReactNode } from "react";
 import { useReviewMode } from "@/lib/hooks";
 import { cn } from "@/lib/cn";
 
-/** Referência do produto em monoespaçada — elemento gráfico da "ficha técnica". */
+/** Selo discreto com a referência do produto (busca por Ref. continua sendo atalho do comprador). */
 export function RefTag({ value, className, inverse }: { value: string; className?: string; inverse?: boolean }) {
   return (
     <span
       className={cn(
-        "inline-flex h-6 items-center rounded-sm px-1.5 font-mono text-[11px] tracking-[0.06em] tabular transition-colors duration-200",
-        inverse ? "bg-navy text-white" : "bg-sunken text-muted",
+        "inline-flex h-6 items-center rounded-pill px-2.5 text-[11px] font-semibold tabular transition-colors duration-200",
+        inverse ? "bg-navy text-white" : "bg-white/90 text-muted shadow-sm",
         className,
       )}
     >
-      REF {value}
+      Ref. {value}
     </span>
   );
 }
@@ -55,7 +55,6 @@ export function Pendente({ children, note }: { children: ReactNode; note: string
 }
 
 export function SectionHeading({
-  index,
   label,
   title,
   lead,
@@ -63,6 +62,7 @@ export function SectionHeading({
   className,
   as: Tag = "h2",
 }: {
+  /** Mantido por compatibilidade; a numeração técnica saiu do design. */
   index?: string;
   label?: string;
   title: ReactNode;
@@ -72,16 +72,10 @@ export function SectionHeading({
   as?: "h1" | "h2";
 }) {
   return (
-    <div className={cn("flex max-w-3xl flex-col gap-4", align === "center" && "mx-auto items-center text-center", className)}>
-      {(index || label) && (
-        <p className="label flex items-center gap-3">
-          {index && <span className="text-accent-text">{index}</span>}
-          {index && label && <span className="h-px w-8 bg-line-strong" aria-hidden />}
-          {label}
-        </p>
-      )}
+    <div className={cn("flex max-w-2xl flex-col gap-3", align === "center" && "mx-auto items-center text-center", className)}>
+      {label && <p className="eyebrow">{label}</p>}
       <Tag className="display-2">{title}</Tag>
-      {lead && <p className="lead max-w-2xl">{lead}</p>}
+      {lead && <p className="lead max-w-xl text-muted">{lead}</p>}
     </div>
   );
 }
@@ -92,7 +86,7 @@ export function Skeleton({ className }: { className?: string }) {
 
 export function EmptyState({ icon, title, children, action }: { icon?: ReactNode; title: string; children?: ReactNode; action?: ReactNode }) {
   return (
-    <div className="flex flex-col items-center gap-3 rounded-lg border border-dashed border-line-strong px-6 py-14 text-center">
+    <div className="flex flex-col items-center gap-3 rounded-lg bg-sunken px-6 py-14 text-center">
       {icon && <div className="text-muted [&>svg]:size-10 [&>svg]:stroke-[1.25]">{icon}</div>}
       <h3 className="display-3 text-xl">{title}</h3>
       {children && <p className="max-w-md text-muted">{children}</p>}

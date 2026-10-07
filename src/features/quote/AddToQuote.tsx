@@ -67,14 +67,15 @@ export function AddToQuote({ productRef, productName, imageRef, size = "sm", cla
         }}
         className={cn(
           h,
-          "group/add inline-flex w-full items-center justify-center gap-2 rounded-pill border border-line-strong bg-raised px-4 text-sm font-medium text-strong transition-colors duration-200",
-          "hover:border-action hover:bg-action hover:text-action-text",
+          "group/add inline-flex w-full items-center justify-center gap-2 rounded-pill bg-sky px-4 text-sm font-bold text-navy transition-colors duration-200",
+          "hover:bg-action hover:text-action-text",
           className,
         )}
         aria-label={`Adicionar ${productName} à cotação`}
       >
         <Plus className="size-4 transition-transform duration-300 group-hover/add:rotate-90" />
-        Cotação
+        <span className="sm:hidden">Adicionar</span>
+        <span className="hidden sm:inline">Adicionar à cotação</span>
       </button>
     );
   }
@@ -96,7 +97,7 @@ export function AddToQuote({ productRef, productName, imageRef, size = "sm", cla
       <input
         ref={inputRef}
         inputMode="numeric"
-        className="w-14 bg-transparent text-center font-mono text-sm tabular outline-none focus-visible:outline-2 focus-visible:outline-signal"
+        className="w-14 bg-transparent text-center text-sm font-bold tabular outline-none focus-visible:outline-2 focus-visible:outline-signal"
         value={line.quantity}
         aria-label="Quantidade"
         onFocus={(e) => e.currentTarget.select()}

@@ -1,99 +1,97 @@
 /*
-  WSN — tokens do design system "Ficha Técnica".
-  Fonte única de cor, espaço, tipo, forma, movimento e camadas. Componentes usam
-  papéis (--surface-*, --text-*, --action...), nunca as cores de marca direto.
-  Marca amostrada do logo (PNG): navy #0B3A6B e verde #3E9A12 — confirmar com vetor.
+  WSN — tokens do design system "Fresco & Confiável".
+  Referências: marcas premium de higiene/limpeza (Method, Blueland, Grove, Kimberly-Clark
+  Professional) + a linguagem dos banners da própria WSN (ondas navy → azul-claro + verde).
+  Produto é o herói; superfícies claras e frescas; formas macias; sombra suave.
+  Componentes usam papéis (--surface-*, --text-*, --action), nunca a cor de marca direto.
 */
 :root {
-  /* Marca */
+  /* Marca (amostrada do logo e dos banners) */
   --brand-navy: #0b3a6b;
-  --brand-navy-deep: #072747;
+  --brand-navy-deep: #072a4f;
+  --brand-sky: #6fa8dc; /* azul-claro da onda dos banners */
   --brand-green: #3e9a12;
-  --brand-ink: #0d1b2a;
-  --brand-paper: #f5f6f3;
-  --brand-steel: #5d6b7a;
-  --brand-mist: #dce2e7;
-  --signal: #f2c230; /* amarelo de sinalização de segurança — pontuação, não tinta */
+  --brand-olive: #6f8f22; /* verde-oliva da onda dos banners */
+  --brand-ink: #0f2236;
+  --signal: #ffc83d;
 
-  /* Superfícies: hierarquia por troca de superfície e hairline, não por sombra */
-  --surface-canvas: var(--brand-paper);
+  /* Superfícies: branco + tintas frescas */
+  --surface-canvas: #ffffff;
   --surface-raised: #ffffff;
-  --surface-sunken: #eceee9;
+  --surface-sunken: #f3f6f9;
+  --surface-sky: #eef5fc; /* faixa azul-céu */
+  --surface-mint: #f0f7ec; /* faixa verde-menta */
+  --surface-photo: #f5f8fb; /* fundo das fotos de produto */
   --surface-deep: var(--brand-navy);
-  --surface-deepest: var(--brand-ink);
+  --surface-deepest: var(--brand-navy-deep);
 
   /* Texto */
   --text-strong: var(--brand-ink);
-  --text-body: #23313f;
-  --text-muted: #56636f;
-  --text-on-deep: #f5f6f3;
-  --text-on-deep-muted: #b9c6d3;
+  --text-body: #3a4a5c;
+  --text-muted: #66768a;
+  --text-on-deep: #ffffff;
+  --text-on-deep-muted: #bdd3ea;
 
   /* Ação e acento */
   --action: var(--brand-navy);
-  --action-hover: var(--brand-ink);
+  --action-hover: #0e4a87;
   --action-text: #ffffff;
   --accent: var(--brand-green);
-  --accent-text: #2f7a0c; /* verde com contraste AA sobre papel */
-  --focus-ring: var(--signal);
+  --accent-text: #2f7d0c;
+  --focus-ring: #3b8fe0;
 
-  /* Semânticas (separadas do acento) */
+  /* Semânticas */
   --ok: #1e7b45;
-  --ok-soft: #e1f1e7;
+  --ok-soft: #e4f4ea;
   --warn: #8a5a00;
-  --warn-soft: #fbf0d4;
-  --danger: #b42318;
-  --danger-soft: #fbe6e3;
-  --whatsapp: #128c4a;
+  --warn-soft: #fff4d6;
+  --danger: #c0352b;
+  --danger-soft: #fdecea;
+  --whatsapp: #1fa855;
 
   /* Linhas */
-  --hairline: color-mix(in srgb, var(--brand-navy) 13%, transparent);
-  --hairline-strong: color-mix(in srgb, var(--brand-navy) 30%, transparent);
-  --hairline-on-deep: color-mix(in srgb, #ffffff 18%, transparent);
+  --hairline: #e3e9ef;
+  --hairline-strong: #cdd7e1;
+  --hairline-on-deep: rgb(255 255 255 / 0.16);
+
+  /* Sombras suaves (tom navy, nunca preto puro) */
+  --shadow-sm: 0 1px 2px rgb(11 58 107 / 0.06), 0 2px 8px rgb(11 58 107 / 0.04);
+  --shadow-md: 0 2px 4px rgb(11 58 107 / 0.04), 0 12px 32px rgb(11 58 107 / 0.08);
+  --shadow-lg: 0 4px 8px rgb(11 58 107 / 0.05), 0 24px 60px rgb(11 58 107 / 0.14);
 
   /* Espaço — base 4px */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-8: 32px;
-  --space-10: 40px;
-  --space-12: 48px;
-  --space-16: 64px;
-  --space-24: 96px;
-  --section: clamp(72px, 9vw, 144px);
-  --page-max: 1320px;
-  --gutter: clamp(16px, 4vw, 56px);
-  --header-h: 64px;
+  --section: clamp(64px, 8vw, 112px);
+  --page-max: 1240px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --header-h: 72px;
 
-  /* Forma */
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
+  /* Forma: macia */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
   --radius-pill: 999px;
 
   /* Tipo */
-  --font-display: "Archivo Variable", "Archivo", system-ui, sans-serif;
-  --font-body: "Geist Variable", "Geist", system-ui, sans-serif;
-  --font-mono: "Geist Mono Variable", "Geist Mono", ui-monospace, monospace;
+  --font-display: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-body: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mono: "Plus Jakarta Sans Variable", ui-monospace, monospace;
   --text-caption: 12px;
   --text-small: 14px;
   --text-base: 16px;
-  --text-lead: clamp(18px, 1.3vw, 21px);
-  --text-h3: clamp(21px, 1.8vw, 28px);
-  --text-h2: clamp(32px, 4.2vw, 60px);
-  --text-h1: clamp(40px, 6.6vw, 104px);
-  --tracking-display: -0.035em;
-  --tracking-label: 0.12em;
+  --text-lead: clamp(17px, 1.25vw, 19px);
+  --text-h3: clamp(19px, 1.5vw, 22px);
+  --text-h2: clamp(28px, 3.2vw, 42px);
+  --text-h1: clamp(36px, 5vw, 60px);
+  --tracking-display: -0.025em;
+  --tracking-label: 0.08em;
 
-  /* Movimento — curto, desacelerado, nunca elástico */
+  /* Movimento — curto e suave */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --dur-fast: 160ms;
-  --dur-base: 280ms;
-  --dur-reveal: 800ms;
+  --dur-base: 260ms;
+  --dur-reveal: 700ms;
 
   /* Camadas */
   --z-raised: 10;
@@ -108,54 +106,6 @@
 
 @media (max-width: 767px) {
   :root {
-    --header-h: 56px;
+    --header-h: 60px;
   }
-}
-
-/* Escuro: mesmos papéis, navy profundo como canvas. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --surface-canvas: #08131f;
-    --surface-raised: #0e1d2e;
-    --surface-sunken: #050d16;
-    --surface-deep: #0b2a4a;
-    --surface-deepest: #02070c;
-    --text-strong: #f1f4f7;
-    --text-body: #d3dbe3;
-    --text-muted: #93a2b1;
-    --action: #e8eef4;
-    --action-hover: #ffffff;
-    --action-text: #072747;
-    --accent-text: #7ccf4f;
-    --ok-soft: #10301f;
-    --warn: #f0c56a;
-    --warn-soft: #33270b;
-    --danger: #ff8a7a;
-    --danger-soft: #3a1512;
-    --hairline: color-mix(in srgb, #ffffff 11%, transparent);
-    --hairline-strong: color-mix(in srgb, #ffffff 24%, transparent);
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --surface-canvas: #08131f;
-  --surface-raised: #0e1d2e;
-  --surface-sunken: #050d16;
-  --surface-deep: #0b2a4a;
-  --surface-deepest: #02070c;
-  --text-strong: #f1f4f7;
-  --text-body: #d3dbe3;
-  --text-muted: #93a2b1;
-  --action: #e8eef4;
-  --action-hover: #ffffff;
-  --action-text: #072747;
-  --accent-text: #7ccf4f;
-  --ok-soft: #10301f;
-  --warn: #f0c56a;
-  --warn-soft: #33270b;
-  --danger: #ff8a7a;
-  --danger-soft: #3a1512;
-  --hairline: color-mix(in srgb, #ffffff 11%, transparent);
-  --hairline-strong: color-mix(in srgb, #ffffff 24%, transparent);
-  color-scheme: dark;
 }

@@ -53,7 +53,7 @@ export function ProductPage() {
   const similar = (data?.products ?? []).filter((p) => p.categoryId === product.categoryId && p.ref !== product.ref).slice(0, 4);
 
   const specs: [string, React.ReactNode][] = [
-    ["Referência", <span className="font-mono tabular">{product.ref}</span>],
+    ["Referência", <span className="tabular">{product.ref}</span>],
     ["Unidade de venda", unitLabel(product.unit)],
     ["Categoria", category ? <Link className="link-grow" to={`/produtos/c/${category.slug}`}>{category.name}</Link> : "—"],
     ["Marca", brand?.name ?? "—"],
@@ -79,7 +79,7 @@ export function ProductPage() {
 
       <article className="container-page mt-6 grid gap-8 md:grid-cols-[1.05fr_1fr] md:gap-14">
         <div className="relative">
-          <ProductImage product={product} imgRef={imageRef} eager className="rounded-lg border border-line md:sticky md:top-[calc(var(--header-h)+24px)]" />
+          <ProductImage product={product} imgRef={imageRef} eager className="rounded-xl bg-photo md:sticky md:top-[calc(var(--header-h)+24px)]" />
           <RefTag value={product.ref} inverse className="absolute top-4 left-4" />
         </div>
 
@@ -91,7 +91,7 @@ export function ProductPage() {
           <h1 className="display-2 text-[clamp(30px,3.4vw,48px)]">{product.name}</h1>
           {product.description && <p className="lead">{product.description}</p>}
 
-          <div className="flex flex-col gap-3 rounded-lg border border-line bg-raised p-5">
+          <div className="card flex flex-col gap-3 p-5">
             <p className="text-sm text-muted">
               Quantidade em <strong className="text-strong">{unitLabel(product.unit, 2)}</strong>. O preço vem na proposta, de acordo com volume e região.
             </p>

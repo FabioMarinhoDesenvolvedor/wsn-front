@@ -12,7 +12,7 @@ export function Logo({ className }: { className?: string }) {
       width={480}
       height={202}
       alt="WSN Descartáveis e EPI's"
-      className={cn("h-auto w-[104px] md:w-[124px]", className)}
+      className={cn("h-auto w-[112px] md:w-[136px]", className)}
       decoding="async"
     />
   );

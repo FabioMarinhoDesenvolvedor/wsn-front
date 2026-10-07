@@ -28,3 +28,9 @@
 
 ## Próximo passo sugerido
 Deploy em `*.workers.dev`, criar o Wesley como admin, rodar uma cotação real, depois DNS.
+
+## Atualização (mesmo dia) — redesign
+Design "Ficha Técnica" rejeitado pelo Fábio. Refeito como "Fresco & Confiável" após pesquisa
+de referências (ver decisão). Three.js removido; bundle principal sem zod. 29 testes, lint,
+tipos e fluxo ponta a ponta verdes; 0 px de rolagem horizontal em 390 px. Próximo: Fábio
+validar visualmente em http://localhost:5173 (desktop e celular).

@@ -51,7 +51,7 @@ export function useDebounced<T>(value: T, ms = 200): T {
   return v;
 }
 
-/** Modo de revisão de copy: ?revisao=1 mostra os selos "a confirmar" (também em dev). */
+/** Modo de revisão de copy: ?revisao=1 mostra os selos "a confirmar". */
 export function useReviewMode(): boolean {
-  return import.meta.env.DEV || new URLSearchParams(window.location.search).has("revisao");
+  return new URLSearchParams(window.location.search).has("revisao");
 }

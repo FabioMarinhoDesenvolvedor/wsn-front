@@ -1,127 +1,134 @@
-import { ArrowRight, ArrowUpRight, Award, Check, Factory, Headset, Lock, MapPin, Search, Truck } from "lucide-react";
-import { useRef, useState } from "react";
+import { ArrowRight, Award, Check, ClipboardCheck, Factory, Headset, MessageCircle, PackageSearch, Search, Send, Truck } from "lucide-react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { company } from "@shared/company";
-import { home } from "@/content/site";
+import type { PublicProduct } from "@shared/catalog";
+import { company, whatsappLink } from "@shared/company";
+import { home, showcase } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { useDocumentTitle, useReveal } from "@/lib/hooks";
-import { LinkButton } from "@/ui/Button";
+import { AnchorButton, LinkButton } from "@/ui/Button";
 import { Pendente, SectionHeading } from "@/ui/bits";
-import { categoryIcon, indexLabel, useCatalog, useCatalogIndex } from "../catalog/data";
-import { OrbitStage } from "./OrbitHero";
+import { Waves } from "@/ui/Waves";
+import { categoryIcon, useCatalog, useCatalogIndex } from "../catalog/data";
+import { ProductCard } from "../catalog/ProductCard";
 
 const FEATURE_ICONS = [Truck, Factory, Award, Headset];
+const STEP_ICONS = [PackageSearch, Send, ClipboardCheck];
 
 export function HomePage() {
   useDocumentTitle("");
-  const heroRef = useRef<HTMLElement>(null);
   const { data } = useCatalog();
   const idx = useCatalogIndex(data);
+  const pick = (refs: string[]) => refs.map((r) => idx.productByRef.get(r)).filter((p): p is PublicProduct => Boolean(p));
 
   return (
     <>
-      {/* 1 — Hero */}
-      <section ref={heroRef} className="relative overflow-hidden border-b border-line">
-        <div className="grid-lines pointer-events-none absolute inset-0 opacity-60 [mask-image:linear-gradient(to_bottom,black,transparent_85%)]" aria-hidden />
-        <div className="container-page relative grid min-h-[calc(100svh-var(--header-h))] items-center gap-10 py-12 md:grid-cols-[1.15fr_1fr] md:py-16">
-          <div className="flex flex-col gap-7 [animation:rise-in_var(--dur-reveal)_var(--ease-out)]">
-            <p className="label flex items-center gap-3">
-              <span className="inline-block size-2 rounded-pill bg-green" aria-hidden />
-              {home.hero.eyebrow}
+      {/* 1 — Hero: o produto é o herói */}
+      <section className="bg-hero relative overflow-hidden">
+        <div className="container-page grid items-center gap-10 pt-10 pb-6 md:pt-16 lg:grid-cols-[1.05fr_1fr] lg:gap-14 lg:pb-10">
+          <div className="flex flex-col gap-6 [animation:rise-in_var(--dur-reveal)_var(--ease-out)]">
+            <p className="inline-flex w-fit items-center gap-2 rounded-pill bg-white px-3.5 py-1.5 text-[13px] font-semibold text-navy shadow-sm">
+              <span className="size-2 rounded-pill bg-green" aria-hidden /> {home.hero.eyebrow}
             </p>
-            <h1 className="display-1 max-w-[13ch]">{home.hero.title}</h1>
-            <p className="lead max-w-lg">{home.hero.lead}</p>
+            <h1 className="display-1 max-w-[15ch]">
+              Organização, <span className="whitespace-nowrap text-accent-text">bem-estar</span> e produtividade em cada ambiente.
+            </h1>
+            <p className="lead max-w-lg">{home.hero.lead}.</p>
             <HeroSearch />
             <div className="flex flex-wrap gap-3">
               <LinkButton to="/produtos" size="lg" viewTransition>
                 {home.hero.ctaPrimary} <ArrowRight className="size-4" />
               </LinkButton>
-              <LinkButton to="/cotacao" size="lg" variant="secondary" viewTransition>
-                {home.hero.ctaSecondary}
-              </LinkButton>
+              <AnchorButton variant="secondary" size="lg" external href={whatsappLink("Olá! Gostaria de uma cotação.")}>
+                <MessageCircle className="size-4 text-whatsapp" /> Falar no WhatsApp
+              </AnchorButton>
             </div>
+            <ul className="flex flex-wrap gap-x-6 gap-y-2 pt-1 text-sm text-body">
+              {["Resposta em até 24 horas", "Entrega para todo o Brasil", "Pix, cartão ou boleto"].map((t) => (
+                <li key={t} className="flex items-center gap-2">
+                  <span className="grid size-5 place-items-center rounded-pill bg-green text-white">
+                    <Check className="size-3" strokeWidth={3} />
+                  </span>
+                  {t}
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className="mx-auto w-full max-w-[560px]">
-            <OrbitStage trackRef={heroRef} />
-          </div>
+          <HeroShowcase products={pick(showcase.hero)} />
         </div>
+        <Waves to="#ffffff" />
       </section>
 
-      {/* 2 — Números */}
-      <section aria-label="WSN em números" className="border-b border-line bg-raised">
-        <dl className="container-page grid grid-cols-2 md:grid-cols-4">
-          {home.stats.map((s, i) => (
-            <div key={s.label} className={cn("flex flex-col gap-1 py-8 md:py-10", i % 2 === 1 && "border-l border-line pl-6", i >= 2 && "border-t border-line md:border-t-0", i > 0 && "md:border-l md:pl-8")}>
-              <dt className="label order-2">{s.label}</dt>
-              <dd className="order-1 font-display text-5xl font-semibold tracking-[-0.04em] text-strong tabular [font-variation-settings:'wdth'_112] md:text-6xl">
-                {s.pendente ? <Pendente note={s.pendente}>{s.value}</Pendente> : s.value}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
-      {/* 3 — Categorias */}
-      <section className="container-page py-[var(--section)]" aria-labelledby="categorias">
-        <Reveal>
-          <SectionHeading index="01" label="Portfólio" title={<span id="categorias">{home.categories.title}</span>} lead={home.categories.lead} />
-        </Reveal>
-        <ul className="mt-12 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
-          {idx.categories.map((c, i) => {
+      {/* 2 — Categorias com foto */}
+      <section className="container-page pt-6 pb-[var(--section)]" aria-labelledby="categorias">
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <SectionHeading label="Portfólio completo" title={<span id="categorias">{home.categories.title}</span>} lead={home.categories.lead} />
+          <Link to="/produtos" viewTransition className="inline-flex items-center gap-2 font-semibold text-navy hover:underline">
+            Ver todos os {data?.products.length ?? ""} produtos <ArrowRight className="size-4" />
+          </Link>
+        </div>
+        <ul className="-mx-[var(--gutter)] mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--gutter)] pb-4 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 lg:grid-cols-5">
+          {idx.categories.map((c) => {
             const Icon = categoryIcon(c.slug);
-            const count = idx.countByCategory.get(c.id) ?? 0;
+            const covers = pick(showcase.categoryCovers[c.slug] ?? []).slice(0, 3);
             return (
-              <li key={c.id}>
-                <Link
-                  to={`/produtos/c/${c.slug}`}
-                  viewTransition
-                  className="group relative flex h-full min-h-56 flex-col gap-6 bg-raised p-7 transition-colors duration-300 ease-out hover:bg-deep"
-                >
-                  <div className="flex items-start justify-between">
-                    <span className="font-mono text-sm text-muted transition-colors group-hover:text-on-deep-muted">{indexLabel(i)}</span>
-                    <ArrowUpRight className="size-5 text-muted transition-[color,transform] duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-signal" />
+              <li key={c.id} className="w-[72vw] max-w-[280px] shrink-0 snap-start md:w-auto md:max-w-none">
+                <Link to={`/produtos/c/${c.slug}`} viewTransition className="card card-hover group flex h-full flex-col overflow-hidden">
+                  <div className="relative grid aspect-[4/3] place-items-center bg-sky">
+                    <CoverStack products={covers} />
+                    <span className="absolute top-3 left-3 grid size-9 place-items-center rounded-pill bg-white shadow-sm">
+                      <Icon className="size-5 text-accent-text" />
+                    </span>
                   </div>
-                  <Icon className="size-9 stroke-[1.25] text-accent-text transition-colors group-hover:text-signal" />
-                  <div className="mt-auto">
-                    <h3 className="display-3 transition-colors group-hover:text-white">{c.name}</h3>
-                    <p className="mt-1 text-sm text-muted transition-colors group-hover:text-on-deep-muted">
-                      {c.description && `${c.description} · `}
-                      <span className="font-mono tabular">{count}</span> itens
-                    </p>
+                  <div className="flex flex-1 items-end justify-between gap-3 p-5">
+                    <div>
+                      <h3 className="text-[17px] font-bold">{c.name}</h3>
+                      <p className="text-sm text-muted">{idx.countByCategory.get(c.id)} produtos</p>
+                    </div>
+                    <span className="grid size-9 shrink-0 place-items-center rounded-pill bg-sunken text-navy transition-colors group-hover:bg-navy group-hover:text-white">
+                      <ArrowRight className="size-4" />
+                    </span>
                   </div>
                 </Link>
               </li>
             );
           })}
-          {/* Fecha a grade (sem célula vazia) com o atalho para o catálogo inteiro */}
-          {idx.categories.length % 3 !== 0 && (
-            <li className={cn(idx.categories.length % 3 === 1 && "lg:col-span-2", idx.categories.length % 2 === 1 && "sm:max-lg:col-span-1")}>
-              <Link to="/produtos" viewTransition className="group flex h-full min-h-56 flex-col justify-between gap-6 bg-navy p-7 text-white transition-colors hover:bg-navy-deep">
-                <span className="font-mono text-sm text-on-deep-muted">{data?.products.length ?? "—"} itens</span>
-                <span className="flex items-end justify-between gap-4">
-                  <span className="display-3 !text-white">{home.categories.cta}</span>
-                  <ArrowRight className="size-6 text-signal transition-transform duration-300 group-hover:translate-x-1" />
-                </span>
-              </Link>
-            </li>
-          )}
         </ul>
       </section>
 
-      {/* 4 — Por que a WSN */}
-      <section className="border-y border-line bg-raised py-[var(--section)]" aria-labelledby="porque">
+      {/* 3 — Mais pedidos */}
+      <section className="bg-sunken/70 py-[var(--section)]" aria-labelledby="destaques">
+        <div className="container-page">
+          <Reveal className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <SectionHeading label="Vitrine" title={<span id="destaques">{showcase.featuredTitle}</span>} lead={showcase.featuredLead} />
+            <LinkButton to="/produtos" variant="secondary" viewTransition>
+              Ver catálogo completo <ArrowRight className="size-4" />
+            </LinkButton>
+          </Reveal>
+          <ul className="mt-10 grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-4">
+            {pick(showcase.featured).map((p) => (
+              <ProductCard key={p.id} product={p} categoryName={idx.categoryById.get(p.categoryId)?.name} brandName={p.brandId ? idx.brandById.get(p.brandId)?.name : null} />
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 4 — Por que a WSN (faixa azul-céu) */}
+      <section className="py-[var(--section)]" aria-labelledby="porque">
         <div className="container-page">
           <Reveal>
-            <SectionHeading index="02" label="Diferenciais" title={<span id="porque">{home.why.title}</span>} lead={home.why.lead} />
+            <SectionHeading align="center" label={`Há ${home.stats[0].value} anos no mercado`} title={<span id="porque">{home.why.title}</span>} lead={home.why.lead} />
           </Reveal>
-          <ul className="mt-12 grid border-t border-line sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="mt-10 grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
             {home.why.features.map((f, i) => {
               const Icon = FEATURE_ICONS[i];
               return (
-                <li key={f.title} className={cn("flex flex-col gap-4 border-b border-line py-8 pr-6 lg:border-b-0", i > 0 && "lg:border-l lg:pl-8", i % 2 === 1 && "sm:border-l sm:pl-8")}>
-                  <Icon className="size-7 stroke-[1.4] text-accent-text" />
-                  <h3 className="font-display text-xl tracking-[-0.02em]">{f.title}</h3>
-                  <p className="text-muted">{f.desc}</p>
+                <li key={f.title} className="flex flex-col items-center gap-2 rounded-lg bg-sky px-3 py-6 text-center md:gap-3 md:px-6 md:py-8">
+                  <span className="grid size-12 place-items-center rounded-pill bg-white shadow-sm md:size-16">
+                    <Icon className="size-7 text-navy" strokeWidth={1.75} />
+                  </span>
+                  <h3 className="text-[15px] font-bold md:text-lg">{f.title}</h3>
+                  <p className="text-sm text-muted">{f.desc}</p>
                 </li>
               );
             })}
@@ -129,19 +136,50 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* 5 — Sobre */}
-      <section className="container-page grid gap-12 py-[var(--section)] lg:grid-cols-[1fr_1fr] lg:items-center" aria-labelledby="sobre">
-        <Reveal className="flex flex-col gap-6">
-          <SectionHeading index="03" label="Desde 2006" title={<span id="sobre">{home.about.title}</span>} />
+      {/* 5 — Como funciona */}
+      <section className="container-page pb-[var(--section)]" aria-labelledby="como">
+        <div className="relative overflow-hidden rounded-xl bg-mint px-6 py-12 md:px-12 md:py-16">
+          <Reveal>
+            <SectionHeading align="center" label="Cotação online" title={<span id="como">{showcase.stepsTitle}</span>} />
+          </Reveal>
+          <ol className="relative mt-10 grid gap-5 md:grid-cols-3">
+            {showcase.steps.map((s, i) => {
+              const Icon = STEP_ICONS[i];
+              return (
+                <li key={s.title} className="card flex flex-col gap-3 p-6">
+                  <div className="flex items-center justify-between">
+                    <span className="grid size-12 place-items-center rounded-pill bg-green text-white">
+                      <Icon className="size-6" />
+                    </span>
+                    <span className="text-4xl font-extrabold text-line-strong">{i + 1}</span>
+                  </div>
+                  <h3 className="text-lg font-bold">{s.title}</h3>
+                  <p className="text-sm text-body">{s.text}</p>
+                </li>
+              );
+            })}
+          </ol>
+          <div className="mt-8 flex justify-center">
+            <LinkButton to="/produtos" size="lg" viewTransition>
+              Começar minha cotação <ArrowRight className="size-4" />
+            </LinkButton>
+          </div>
+        </div>
+      </section>
+
+      {/* 6 — Sobre + números */}
+      <section className="container-page grid gap-10 pb-[var(--section)] lg:grid-cols-2 lg:items-center" aria-labelledby="sobre">
+        <Reveal className="flex flex-col gap-5">
+          <SectionHeading label={`Desde ${company.foundedYear}`} title={<span id="sobre">{home.about.title}</span>} />
           {home.about.paragraphs.map((p) => (
-            <p key={p.slice(0, 20)} className="text-lg leading-relaxed text-body">
+            <p key={p.slice(0, 20)} className="text-[17px] leading-relaxed">
               {p}
             </p>
           ))}
-          <ul className="flex flex-wrap gap-x-6 gap-y-2">
+          <ul className="flex flex-wrap gap-2">
             {home.about.checks.map((c) => (
-              <li key={c} className="flex items-center gap-2 text-strong">
-                <Check className="size-4 text-accent-text" /> {c}
+              <li key={c} className="flex items-center gap-2 rounded-pill bg-mint px-3.5 py-1.5 text-sm font-semibold text-accent-text">
+                <Check className="size-4" /> {c}
               </li>
             ))}
           </ul>
@@ -151,68 +189,133 @@ export function HomePage() {
             </LinkButton>
           </div>
         </Reveal>
-        <Reveal className="relative overflow-hidden rounded-lg bg-deep p-8 text-on-deep md:p-12">
-          <p className="label !text-on-deep-muted">Fundada em</p>
-          <p className="font-display text-[clamp(96px,14vw,200px)] leading-none font-semibold tracking-[-0.06em] text-white tabular [font-variation-settings:'wdth'_120]">
-            {company.foundedYear}
-          </p>
-          <div className="mt-8 grid gap-4 border-t border-line-deep pt-6 sm:grid-cols-2">
-            <p className="flex items-start gap-3 text-sm">
-              <MapPin className="mt-0.5 size-4 shrink-0 text-signal" />
-              {company.address.street} – {company.address.district}, {company.address.city} – {company.address.state}
-            </p>
-            <p className="flex items-start gap-3 text-sm">
-              <Truck className="mt-0.5 size-4 shrink-0 text-signal" />
-              {home.coverage.lead}
-            </p>
-          </div>
-        </Reveal>
+        <dl className="grid grid-cols-2 gap-4">
+          {home.stats.map((s, i) => (
+            <div key={s.label} className={cn("flex flex-col gap-1 rounded-lg p-6 md:p-8", i === 0 ? "bg-navy text-white" : "bg-sky")}>
+              <dt className={cn("order-2 text-sm font-semibold", i === 0 ? "text-on-deep-muted" : "text-muted")}>{s.label}</dt>
+              <dd className={cn("order-1 text-4xl font-extrabold tracking-tight tabular md:text-5xl", i === 0 ? "text-white" : "text-navy")}>
+                {s.pendente ? <Pendente note={s.pendente}>{s.value}</Pendente> : s.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
-      {/* 6 — Marcas */}
-      <section className="border-y border-line bg-raised py-[var(--section)]" aria-labelledby="marcas">
+      {/* 7 — Marcas (em cor, como as grandes marcas do setor fazem) */}
+      <section className="border-y border-line bg-white py-[var(--section)]" aria-labelledby="marcas">
         <div className="container-page">
           <Reveal>
-            <SectionHeading index="04" label="Parceiros" title={<span id="marcas">{home.brands.title}</span>} lead={home.brands.lead} />
+            <SectionHeading align="center" label="Parceiros" title={<span id="marcas">{home.brands.title}</span>} lead={home.brands.lead} />
           </Reveal>
-        </div>
-        <BrandMarquee logos={(data?.brands ?? []).filter((b) => b.logoPath)} />
-      </section>
-
-      {/* 7 — Cobertura */}
-      <section className="container-page py-[var(--section)]">
-        <div className="relative grid gap-8 overflow-hidden rounded-lg bg-navy p-8 text-white md:grid-cols-[1fr_auto] md:items-center md:p-14">
-          <div className="grid-lines pointer-events-none absolute inset-0 opacity-20 invert" aria-hidden />
-          <div className="relative">
-            <h2 className="display-2 !text-white">{home.coverage.title}</h2>
-            <p className="mt-4 max-w-xl text-lg text-on-deep-muted">{home.coverage.lead}</p>
-          </div>
-          <LinkButton to="/produtos" size="lg" variant="inverse" className="relative" viewTransition>
-            {home.coverage.cta} <ArrowRight className="size-4" />
-          </LinkButton>
+          <ul className="mt-10 grid grid-cols-3 gap-3 sm:grid-cols-5 lg:grid-cols-9">
+            {(data?.brands ?? [])
+              .filter((b) => b.logoPath)
+              .map((b) => (
+                <li key={b.id} className="grid h-20 place-items-center rounded-md bg-white px-3 shadow-sm ring-1 ring-line transition-shadow hover:shadow-md">
+                  <img src={b.logoPath!} alt={b.name} loading="lazy" className="max-h-10 w-auto object-contain" />
+                </li>
+              ))}
+          </ul>
         </div>
       </section>
 
-      {/* 8 — Pagamento e segurança */}
-      <section className="border-t border-line">
-        <div className="container-page flex flex-col gap-6 py-8 md:flex-row md:items-center md:justify-between">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="font-medium text-strong">{home.payment.label}</span>
-            {home.payment.methods.map((m) => (
-              <span key={m} className="rounded-pill border border-line-strong px-3 py-1 text-sm">
-                {m}
-              </span>
-            ))}
-            <span className="text-sm text-muted">
-              {home.payment.pixTitle} <strong className="text-strong">{home.payment.pixLead}</strong>
-            </span>
+      {/* 8 — Cobertura */}
+      <section className="container-page pt-[var(--section)]">
+        <div className="relative overflow-hidden rounded-xl bg-navy text-white">
+          <div className="grid gap-8 p-8 md:grid-cols-[1fr_auto] md:items-center md:p-14">
+            <div>
+              <h2 className="display-2 !text-white">{home.coverage.title}</h2>
+              <p className="mt-3 max-w-xl text-lg text-on-deep-muted">{home.coverage.lead}</p>
+              <p className="mt-5 flex flex-wrap items-center gap-2 text-sm text-on-deep-muted">
+                {home.payment.label}
+                {home.payment.methods.map((m) => (
+                  <span key={m} className="rounded-pill bg-white/10 px-3 py-1 font-semibold text-white">
+                    {m}
+                  </span>
+                ))}
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row md:flex-col">
+              <LinkButton to="/produtos" size="lg" variant="inverse" viewTransition>
+                {home.coverage.cta} <ArrowRight className="size-4" />
+              </LinkButton>
+              <AnchorButton variant="whatsapp" size="lg" external href={whatsappLink("Olá! Gostaria de uma cotação.")}>
+                <MessageCircle className="size-4" /> WhatsApp
+              </AnchorButton>
+            </div>
           </div>
-          <p className="flex items-center gap-2 text-sm text-ok">
-            <Lock className="size-4" /> {home.payment.secure}
-          </p>
+          <Waves to="#0b3a6b" className="pointer-events-none absolute inset-x-0 bottom-0 h-10 opacity-40 md:h-16" flip />
         </div>
       </section>
     </>
+  );
+}
+
+/**
+ * Vitrine do hero em mosaico (bento): produtos reais em tiles brancos alinhados,
+ * sem sobreposição. Ordem de `showcase.hero`: Veja, Ypê, luvas nitrílicas, papel, luvas amarelas, álcool gel.
+ */
+function HeroShowcase({ products }: { products: PublicProduct[] }) {
+  const [veja, ype, nitrilica, papel, amarela, alcool] = products;
+  const tiles: { p?: PublicProduct; cls: string; label?: string }[] = [
+    { p: nitrilica, cls: "col-span-2 row-span-2", label: "EPIs" },
+    { p: ype, cls: "row-span-2", label: "Limpeza" },
+    { p: papel, cls: "", label: "Papéis" },
+    { p: alcool, cls: "" },
+    { p: amarela, cls: "" },
+  ];
+  return (
+    <div className="relative mx-auto w-full max-w-[560px]" aria-hidden>
+      <div className="absolute -inset-6 rounded-xl bg-gradient-to-br from-[#dcebf9] via-[#eef5fc] to-[#eaf4e2] md:-inset-8" />
+      <div className="relative grid aspect-[6/5] grid-cols-3 grid-rows-3 gap-3 md:gap-4">
+        {tiles.map(({ p, cls, label }, i) =>
+          p ? (
+            <div key={p.ref} className={cn("relative overflow-hidden rounded-lg bg-white shadow-sm", cls)}>
+              <img src={p.imagePath ?? ""} alt="" loading={i < 2 ? "eager" : "lazy"} className="absolute inset-[9%] size-[82%] object-contain" />
+              {label && <span className="absolute top-3 left-3 rounded-pill bg-sky px-2.5 py-1 text-[11px] font-bold text-navy">{label}</span>}
+            </div>
+          ) : null,
+        )}
+      </div>
+      {veja && (
+        <div className="float absolute -top-10 -right-6 hidden size-20 rounded-lg bg-white shadow-md xl:block">
+          <img src={veja.imagePath ?? ""} alt="" className="absolute inset-[10%] size-[80%] object-contain" />
+        </div>
+      )}
+      <div className="absolute -bottom-7 left-4 flex items-center gap-3 rounded-pill bg-white py-2 pr-5 pl-2 shadow-md md:-left-6">
+        <span className="grid size-9 place-items-center rounded-pill bg-green text-white">
+          <Check className="size-5" strokeWidth={3} />
+        </span>
+        <span className="text-sm leading-tight">
+          <strong className="block text-strong">Cotação enviada</strong>
+          <span className="text-muted">resposta em até 24h</span>
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function CoverStack({ products }: { products: PublicProduct[] }) {
+  if (!products.length) return null;
+  const [main, ...rest] = products;
+  return (
+    <div className="relative h-[78%] w-[86%]">
+      {rest.map((p, i) => (
+        <img
+          key={p.ref}
+          src={p.imagePath ?? ""}
+          alt=""
+          loading="lazy"
+          className={cn("absolute bottom-[4%] h-[62%] w-[42%] rounded-md bg-white object-contain p-2 shadow-sm", i === 0 ? "left-0 -rotate-6" : "right-0 rotate-6")}
+        />
+      ))}
+      <img
+        src={main.imagePath ?? ""}
+        alt=""
+        loading="lazy"
+        className="absolute inset-x-[22%] top-0 h-[92%] w-[56%] rounded-md bg-white object-contain p-2 shadow-md transition-transform duration-500 ease-out group-hover:-translate-y-1 group-hover:scale-[1.03]"
+      />
+    </div>
   );
 }
 
@@ -235,40 +338,20 @@ function HeroSearch() {
         e.preventDefault();
         navigate(q.trim() ? `/produtos?q=${encodeURIComponent(q.trim())}` : "/produtos", { viewTransition: true });
       }}
-      className="group relative max-w-lg"
+      className="relative max-w-xl"
     >
-      <Search className="pointer-events-none absolute top-1/2 left-5 size-5 -translate-y-1/2 text-muted" aria-hidden />
+      <Search className="pointer-events-none absolute top-1/2 left-5 size-5 -translate-y-1/2 text-navy" aria-hidden />
       <input
         type="search"
         value={q}
         onChange={(e) => setQ(e.target.value)}
-        placeholder="Luva nitrílica, saco de lixo 100 L, Ref. 0038…"
-        aria-label="Buscar produtos por nome ou referência"
-        className="h-14 w-full rounded-pill border border-line-strong bg-raised pr-28 pl-13 text-base text-strong placeholder:text-muted focus:border-action focus:outline-none"
+        placeholder="O que você precisa? Ex.: luva nitrílica"
+        aria-label="Buscar produtos por nome, marca ou referência"
+        className="h-14 w-full rounded-pill border border-line-strong bg-white pr-32 pl-13 text-base text-strong shadow-sm placeholder:text-muted focus:border-navy focus:ring-4 focus:ring-[#d6e8f8] focus:outline-none"
       />
-      <button type="submit" className="absolute top-1.5 right-1.5 h-11 rounded-pill bg-action px-5 text-sm font-medium text-action-text transition-colors hover:bg-action-hover">
+      <button type="submit" className="absolute top-1.5 right-1.5 h-11 rounded-pill bg-green px-6 text-sm font-bold text-white transition-colors hover:bg-[#358510]">
         Buscar
       </button>
     </form>
-  );
-}
-
-function BrandMarquee({ logos }: { logos: { id: number; name: string; logoPath: string | null }[] }) {
-  if (!logos.length) return null;
-  const row = [...logos, ...logos];
-  return (
-    <div className="marquee mt-12 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-      <ul className="marquee-track flex w-max items-center gap-6 motion-reduce:flex-wrap motion-reduce:justify-center">
-        {row.map((b, i) => (
-          <li
-            key={`${b.id}-${i}`}
-            aria-hidden={i >= logos.length || undefined}
-            className="grid h-24 w-44 place-items-center rounded-md border border-line bg-white px-6 transition-colors hover:border-line-strong motion-reduce:[&:nth-child(n+10)]:hidden"
-          >
-            <img src={b.logoPath!} alt={b.name} loading="lazy" className="max-h-12 w-auto object-contain grayscale transition-[filter] duration-300 hover:grayscale-0" />
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }
