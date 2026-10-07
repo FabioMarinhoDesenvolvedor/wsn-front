@@ -1,6 +1,6 @@
 # Design "Fresco & Confiável" (substitui "Ficha Técnica")
 
-- **Data**: 2026-10-07 · **Status**: aprovada após feedback duro do Fábio
+- **Data**: 2026-10-07 · **Status**: aprovada — Fábio validou o resultado ("ficou ótimo")
 - **Substitui**: `2026-10-07-design-ficha-tecnica.md`
 
 ## Por que mudou
