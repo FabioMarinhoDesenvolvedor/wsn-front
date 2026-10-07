@@ -1,0 +1,37 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "wsn",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "assets": {
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    // O Worker só intercepta API, mídia e páginas que recebem metadados de SEO.
+    "run_worker_first": ["/api/*", "/media/*", "/produtos/*", "/proposta/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "wsn",
+      // Substituir pelo id real após `wrangler d1 create wsn` (ver docs/project/05-operacao.md).
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "wsn-media" }],
+  "triggers": {
+    // */15: entrega de e-mails pendentes · 09:00 UTC (06:00 SP): expirações e retenção LGPD
+    "crons": ["*/15 * * * *", "0 9 * * *"]
+  },
+  "vars": {
+    "APP_URL": "http://localhost:5173",
+    "MAIL_FROM": "WSN Distribuidora <nao-responda@wsndistribuidora.com.br>",
+    "MAIL_TO_SALES": "contato@wsndistribuidora.com.br",
+    "TURNSTILE_SITE_KEY": "1x00000000000000000000AA",
+    "ENVIRONMENT": "development"
+  }
+  // Segredos (wrangler secret put / .dev.vars): PII_KEYS, PII_ACTIVE_KEY, HMAC_KEY,
+  // TURNSTILE_SECRET, RESEND_API_KEY (opcional: sem ela, e-mails vão para o log em dev).
+}

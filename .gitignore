@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# v2
+.wrangler
+.dev.vars
+*.local.json
+migrations/seed/

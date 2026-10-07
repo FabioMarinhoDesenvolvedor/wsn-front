@@ -1,0 +1,302 @@
+[
+  {
+    "ref": "0001",
+    "nome": "ÁLCOOL 70° LÍQUIDO - 1 LITRO - ITAJÁ CAIXA COM 12 UN",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0002",
+    "nome": "ÁLCOOL 70% GEL - 5 LITROS",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0003",
+    "nome": "DETERGENTE NEUTRO - 500 ML",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0004",
+    "nome": "DETERGENTE NEUTRO - 5 LITROS",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0005",
+    "nome": "DESINCRUSTANTE - 5 LITROS",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0006",
+    "nome": "CLORO - 5 LITROS",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0007",
+    "nome": "CERA LIQUIDA INCOLOR - 5 LITROS",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0008",
+    "nome": "DESINFETANTE PERFUMADO - 5 LITROS",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0009",
+    "nome": "LIMPA ALUMÍNIO - 5 LITROS",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0010",
+    "nome": "LIMPA PEDRA - 5 LITROS",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0011",
+    "nome": "MULTIUSO INCOLOR - 5 LITROS",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0012",
+    "nome": "SABÃO EM BARRA NEUTRO YPÊ COM 5 UN",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0013",
+    "nome": "SABÃO EM PÓ OMO - 800G",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0014",
+    "nome": "SABONETE LÍQUIDO PERFUMADO - 5 LITROS",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0015",
+    "nome": "ODORIZADOR BOM AR 360ML",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0016",
+    "nome": "SAPÓLIO RADIUM 250ML",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0017",
+    "nome": "MULTIUSO VEJA 500ML",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0018",
+    "nome": "LUSTRA MÓVEIS 500ML",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0019",
+    "nome": "ESPONJA AMARELA SCOTCH BRITE COM 10 UN",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0020",
+    "nome": "FIBRA FINA LIMPEZA LEVE",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0021",
+    "nome": "FIBRAÇO 3M SCOTCH BRITE PCT COM 5 UN",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0022",
+    "nome": "LIMPADOR PERF CONC COALA 120ML",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0023",
+    "nome": "FREECO BLOQUEADOR DE ODORES 60ML",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0024",
+    "nome": "REMOVEDOR SUPREMA 500ML",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0025",
+    "nome": "PANO ALVEJADO BRANCO COM 10 UN",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0026",
+    "nome": "PANO DE LIMPEZA XADREZ COM 10 UN",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0027",
+    "nome": "PEDRA SANITÁRIA PERFUMADO 25G",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0028",
+    "nome": "AVENTAL PVC BRANCO 1.20CM",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0029",
+    "nome": "BANDEJA ALUMÍNIO LIFE CLEAN 750ML COM 100 UN",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0030",
+    "nome": "BANDEJA ALUMÍNIO LIFE CLEAN 1.150ML COM 100 UN",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0031",
+    "nome": "BOBINA PICOTADA 20X30",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0032",
+    "nome": "BOBINA PICOTADA 30X40",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0033",
+    "nome": "BOBINA PICOTADA 40X60",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0034",
+    "nome": "BORRIFADOR DE PLÁSTICO 500ML",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0035",
+    "nome": "ESCOVA DE AÇO MANUAL COM CABO",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0036",
+    "nome": "FILME PVC ALPFILM 38X600",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0037",
+    "nome": "INSETICIDA PRO INSET AEROSSOL 450ML",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0038",
+    "nome": "LUVA LÁTEX COM PÓ DESCARPACK",
+    "unidade": "caixa"
+  },
+  {
+    "ref": "0039",
+    "nome": "LUVA LÁTEX SEM PÓ MEDIX",
+    "unidade": "caixa"
+  },
+  {
+    "ref": "0040",
+    "nome": "LUVA VINIL SEM PÓ DESCARPACK",
+    "unidade": "caixa"
+  },
+  {
+    "ref": "0041",
+    "nome": "LUVA AMARELA MULTIUSO",
+    "unidade": "par"
+  },
+  {
+    "ref": "0042",
+    "nome": "LUVA NITRILICA SEM PÓ PRETA DESCARPACK",
+    "unidade": "caixa"
+  },
+  {
+    "ref": "0043",
+    "nome": "MANGA DE CONFEITAR MAGO GIGANTE 26X47CM COM 50 UN",
+    "unidade": "pct"
+  },
+  {
+    "ref": "0048",
+    "nome": "MÁSCARA DESCARTÁVEL TRIPLA DESCARPACK COM 50 UN",
+    "unidade": "caixa"
+  },
+  {
+    "ref": "0049",
+    "nome": "PÁ PARA LIXO COMUM",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0050",
+    "nome": "PALITO DE DENTE BAMBU COM 2.000 UN",
+    "unidade": "caixa"
+  },
+  {
+    "ref": "0051",
+    "nome": "PALITO BAMBU PARA PETISCO 9CM COM 50 UN",
+    "unidade": "pct"
+  },
+  {
+    "ref": "0052",
+    "nome": "PANO MULTIUSO ROLO 28X40 600 PANOS: AZUL / VERDE / BRANCO",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0053",
+    "nome": "PAPEL ALUMÍNIO 45X65CM LIFE CLEAN",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0054",
+    "nome": "PAPEL HIGIÊNICO ROLÃO 9CMX180M COM 8 UN",
+    "unidade": "pct"
+  },
+  {
+    "ref": "0055",
+    "nome": "PAPEL TOALHA INTERFOLHA SECAR MÃOS DUPLA 100% CELULOSE",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0056",
+    "nome": "PAPEL TOALHA BOBINA 100% CELULOSE 200M COM 6 UN",
+    "unidade": "pct"
+  },
+  {
+    "ref": "0057",
+    "nome": "RODO PLÁSTICO 40CM COM CABO DE MADEIRA",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0058",
+    "nome": "VASSOURA NYLON MULTIUSO COM CABO",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0059",
+    "nome": "TOUCA DESC. BRANCA SANFONADA COM 100 UN MEDIX",
+    "unidade": "unidade"
+  },
+  {
+    "ref": "0060",
+    "nome": "TOUCA DE REDINHA PRETA NYLON COM 100 UN MEDIX",
+    "unidade": "pct"
+  },
+  {
+    "ref": "0061",
+    "nome": "SACO DE LIXO PRETO 40L",
+    "unidade": "pct"
+  },
+  {
+    "ref": "0062",
+    "nome": "SACO DE LIXO PRETO 60L",
+    "unidade": "pct"
+  },
+  {
+    "ref": "0063",
+    "nome": "SACO DE LIXO PRETO 100L",
+    "unidade": "pct"
+  },
+  {
+    "ref": "0064",
+    "nome": "SACO DE LIXO PRETO 200L",
+    "unidade": "pct"
+  }
+]
